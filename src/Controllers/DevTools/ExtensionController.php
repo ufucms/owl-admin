@@ -92,10 +92,10 @@ class ExtensionController extends AdminController
                 ])
             )
             ->headerToolbar([
+                amis('reload')->align('left'),
                 $this->createExtend(),
                 $this->localInstall(),
                 $this->moreExtend(),
-                amis('reload')->align('right'),
                 amis('filter-toggler')->align('right'),
             ])
             ->rowClassNameExpr('<%= !data.enabled ? "bg-yellow-50" : "" %>')

@@ -36,45 +36,15 @@ class CodeGeneratorController extends AdminController
 
     public function list()
     {
-        $formDrawer = function ($isEdit = false) {
-            $body = $this->form();
-
-            if ($isEdit) {
-                $body = $body->initApi($this->getEditGetDataPath())->api($this->getUpdatePath());
-            } else {
-                $body = $body->api($this->getStorePath());
-            }
-
-            return amisMake()
-                ->Dialog()
-                ->size('full')
-                ->title($isEdit ? __('admin.edit') : __('admin.create'))
-                ->actions([
-                    amisMake()->VanillaAction()->actionType('cancel')->label(__('admin.cancel')),
-                    amisMake()
-                        ->VanillaAction()
-                        ->type('submit')
-                        ->label(__('admin.save'))
-                        ->level('primary'),
-                ])
-                ->body($body);
-        };
-
         return $this->baseCRUD()
+            ->filterTogglable(true)
             ->filter(
                 $this->baseFilter()->body([
                     amisMake()->TextControl('keyword', __('admin.keyword'))->size('md'),
                 ])
             )
             ->headerToolbar([
-                amisMake()
-                    ->DialogAction()
-                    ->label(__('admin.create'))
-                    ->icon('fa fa-add')
-                    ->level('primary')
-                    ->dialog(
-                        $formDrawer()
-                    ),
+                ...$this->baseHeaderToolBar($this->createButton(true, 'full')),
                 amisMake()
                     ->DialogAction()
                     ->label(__('admin.code_generators.import_record'))
@@ -96,7 +66,6 @@ class CodeGeneratorController extends AdminController
                             ])
                         )
                     ),
-                ...$this->baseHeaderToolBar(),
             ])
             ->columns([
                 amisMake()->TableColumn('id', 'ID')->sortable(),
@@ -159,14 +128,7 @@ class CodeGeneratorController extends AdminController
                         ->dialog(
                             $this->previewCodeDialog()
                         ),
-                    amisMake()
-                        ->DialogAction()
-                        ->label(__('admin.edit'))
-                        ->icon('fa-regular fa-pen-to-square')
-                        ->level('link')
-                        ->dialog(
-                            $formDrawer(true)
-                        ),
+                    $this->rowEditButton(true, 'full'),
                     $this->rowDeleteButton(),
                 ]),
             ]);
@@ -275,8 +237,7 @@ class CodeGeneratorController extends AdminController
                                     ->joinValues(false)
                                     ->extractValue()
                                     ->checkAll()
-                                    ->defaultCheckAll()
-                                    ->options(Generator::make()->needCreateOptions()),
+                                    ->options(Generator::make()->needCreateOptions())->value('need_controller,need_service'),
                                 amisMake()
                                     ->TextControl('primary_key', __('admin.code_generators.primary_key'))
                                     ->value('id')
@@ -294,9 +255,9 @@ class CodeGeneratorController extends AdminController
                                     ->value($this->getNamespace('Services',
                                             1) . '${' . $nameHandler . '}Service'),
                                 amisMake()
-                                    ->SwitchControl('need_timestamps', 'CreatedAt & UpdatedAt')
+                                    ->SwitchControl('need_timestamps', __('admin.created_at') . ' & ' . __('admin.updated_at'))
                                     ->value(1),
-                                amisMake()->SwitchControl('soft_delete', __('admin.soft_delete'))->value(1),
+                                amisMake()->SwitchControl('soft_delete', __('admin.soft_delete'))->value(0),
                             ]),
                         ]),
                     )

@@ -19,7 +19,6 @@ class {{ ClassName }} extends AdminController
     public function list(): Page
     {
         $crud = $this->baseCRUD()
-            ->filterTogglable(false){{ HeaderToolbar }}
             ->columns([
                 {{ ListContent }}
                 {{ RowActions }}

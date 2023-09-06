@@ -18,13 +18,7 @@ class AdminMenuController extends AdminController
     {
         $crud = $this->baseCRUD()
             ->loadDataOnce()
-            ->syncLocation(false)
             ->footerToolbar([])
-            ->headerToolbar([
-                $this->createButton(true, 'lg'),
-                ...$this->baseHeaderToolBar(),
-            ])
-            ->filterTogglable(false)
             ->footerToolbar(['statistics'])
             ->bulkActions([$this->bulkDeleteButton()->reload('window')])
             ->columns([

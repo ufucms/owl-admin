@@ -66,7 +66,7 @@ trait ElementTrait
      *
      * @return DialogAction|LinkAction
      */
-    protected function createButton(bool $dialog = false, string $dialogSize = ''): DialogAction|LinkAction
+    protected function createButton(bool $dialog = false, string $dialogSize = 'md'): DialogAction|LinkAction
     {
         if ($dialog) {
             $form = $this->form(false)->api($this->getStorePath())->onEvent([]);
@@ -89,7 +89,7 @@ trait ElementTrait
      *
      * @return DialogAction|LinkAction
      */
-    protected function rowEditButton(bool $dialog = false, string $dialogSize = ''): DialogAction|LinkAction
+    protected function rowEditButton(bool $dialog = false, string $dialogSize = 'md'): DialogAction|LinkAction
     {
         if ($dialog) {
             $form = $this->form(true)
@@ -116,7 +116,7 @@ trait ElementTrait
      *
      * @return DialogAction|LinkAction
      */
-    protected function rowShowButton(bool $dialog = false, string $dialogSize = ''): DialogAction|LinkAction
+    protected function rowShowButton(bool $dialog = false, string $dialogSize = 'md'): DialogAction|LinkAction
     {
         if ($dialog) {
             $button = DialogAction::make()->dialog(
@@ -152,7 +152,7 @@ trait ElementTrait
      *
      * @return Operation
      */
-    protected function rowActions(bool|array $dialog = false, string $dialogSize = ''): Operation
+    protected function rowActions(bool|array $dialog = false, string $dialogSize = 'md'): Operation
     {
         if (is_array($dialog)) {
             return Operation::make()->label(__('admin.actions'))->buttons($dialog);
@@ -189,7 +189,7 @@ trait ElementTrait
         return CRUDTable::make()
             ->perPage(20)
             ->affixHeader(false)
-            ->filterTogglable()
+            ->filterTogglable(false)
             ->filterDefaultVisible(false)
             ->set('primaryField', $this->service->primaryKey())
             ->api($this->getListGetDataPath())
@@ -199,16 +199,20 @@ trait ElementTrait
             ->perPageAvailable([10, 20, 30, 50, 100, 200])
             ->footerToolbar(['switch-per-page', 'statistics', 'pagination'])
             ->headerToolbar([
-                $this->createButton(),
                 ...$this->baseHeaderToolBar(),
             ]);
     }
 
-    protected function baseHeaderToolBar()
+    protected function baseHeaderToolBar($createButton = null): Array
     {
+        if($createButton === null){
+            $createButton = $this->createButton(true);
+        }
         return [
+            amis('reload')->align('left'),
+            $createButton,
             'bulkActions',
-            amis('reload')->align('right'),
+            amis('columns-toggler')->align('right'),
             amis('filter-toggler')->align('right'),
         ];
     }

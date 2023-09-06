@@ -34,11 +34,8 @@ class AdminPermissionController extends AdminController
             ->filterTogglable(false)
             ->footerToolbar([])
             ->headerToolbar([
-                $this->createButton(true, 'lg'),
-                'bulkActions',
+                ...$this->baseHeaderToolBar(),
                 $autoBtn,
-                amis('reload')->align('right'),
-                amis('filter-toggler')->align('right'),
             ])
             ->columns([
                 amisMake()->TableColumn('id', 'ID')->sortable(),
