@@ -37,25 +37,25 @@ class AdminUser extends User implements AuthenticatableContract
     }
 
     /**
-     * ÐÔ±ðÑ¡Ïî
+     * æ€§åˆ«é€‰é¡¹
      * 
     **/
     public static $genderDef = 0;
     public static $genderOpt = [
         [
-            'label' => 'Î´Öª',
+            'label' => 'æœªçŸ¥',
             'value' => 0,
             'color' => '#303540',
             'icon'  => 'fa fa-genderless',
         ],
         [
-            'label' => 'ÄÐ',
+            'label' => 'ç”·',
             'value' => 1,
             'color' => '#2468f2',
             'icon'  => 'fa fa-mars',
         ],
         [
-            'label' => 'Å®',
+            'label' => 'å¥³',
             'value' => 2,
             'color' => '#f23d3d',
             'icon'  => 'fa fa-venus',
@@ -63,19 +63,19 @@ class AdminUser extends User implements AuthenticatableContract
     ];
 
     /**
-     * ×´Ì¬Ñ¡Ïî
+     * çŠ¶æ€é€‰é¡¹
      * 
     **/
     public static $stateDef = 1;
     public static $stateOpt = [
         [
-            'label' => 'ÒÑ½ûÓÃ',
+            'label' => 'å·²ç¦ç”¨',
             'value' => 0,
             'color' => '#f23d3d',
             'icon'  => 'fa fa-times-circle',
         ],
         [
-            'label' => 'Õý³£',
+            'label' => 'æ­£å¸¸',
             'value' => 1,
             'color' => '#30bf13',
             'icon'  => 'fa fa-check-circle',
