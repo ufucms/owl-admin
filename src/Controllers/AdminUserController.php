@@ -17,6 +17,7 @@ class AdminUserController extends AdminController
 
     public function list(): Page
     {
+        $model = $this->serviceName::make()->getModel();
         $crud = $this->baseCRUD()
             ->headerToolbar([
                 $this->createButton(true),
@@ -24,7 +25,7 @@ class AdminUserController extends AdminController
             ])
             ->filter($this->baseFilter()->body(
                 amis()->TextControl('keyword', __('admin.keyword'))
-                    ->size('md')
+                    ->size('lg')
                     ->placeholder(__('admin.admin_user.search_username'))
             ))
             ->columns([

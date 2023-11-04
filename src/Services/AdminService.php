@@ -27,6 +27,20 @@ abstract class AdminService
         return new $this->modelName;
     }
 
+    /**
+     * 控制器中快速获取模型中定义的常量数组
+     * 使用方法 $this->serviceName::getStaticAttr('genderOpt')
+     * 
+     * @author Eric <liushun@aliyun.com>
+     * 
+     * @param string
+     * @return array
+    **/
+    public static function getStaticAttr($attr): array
+    {
+        return self::make()->getModel()::${$attr};
+    }
+
     public function primaryKey()
     {
         return $this->getModel()->getKeyName();

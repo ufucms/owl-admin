@@ -183,7 +183,7 @@ if (!function_exists('admin_extension_path')) {
      */
     function admin_extension_path(?string $path = null)
     {
-        $dir = rtrim(config('admin.extension.dir'), '/') ?: base_path('extensions');
+        $dir = rtrim(config('admin.extension.dir'), '/') ?: base_path('addons');
 
         $path = ltrim($path, '/');
 

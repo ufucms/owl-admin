@@ -47,7 +47,7 @@ class InstallCommand extends Command
         $this->makeDir('/');
         $this->line('<info>Admin directory was created:</info> ' . str_replace(base_path(), '', $this->directory));
 
-        $this->makeDir('Controllers');
+        $this->makeDir('Http/Controllers');
 
 
         $this->createAuthController();
@@ -64,11 +64,11 @@ class InstallCommand extends Command
 
     public function createAuthController(): void
     {
-        $authController = $this->directory . '/Controllers/AuthController.php';
+        $authController = $this->directory . '/Http/Controllers/AuthController.php';
         $contents       = $this->getStub('AuthController');
         $this->laravel['files']->put(
             $authController,
-            str_replace('{{Namespace}}', $this->getNamespace('Controllers'), $contents)
+            str_replace('{{Namespace}}', $this->getNamespace('Http\Controllers'), $contents)
         );
         $this->line('<info>AuthController file was created:</info> ' . str_replace(base_path(), '', $authController));
     }
@@ -88,13 +88,13 @@ class InstallCommand extends Command
 
         $contents = $this->getStub('routes');
         $this->laravel['files']->put($file,
-            str_replace('{{Namespace}}', $this->getNamespace('Controllers'), $contents));
+            str_replace('{{Namespace}}', $this->getNamespace('Http\Controllers'), $contents));
         $this->line('<info>Routes file was created:</info> ' . str_replace(base_path(), '', $file));
     }
 
     public function createHomeController(): void
     {
-        $homeController = $this->directory . '/Controllers/HomeController.php';
+        $homeController = $this->directory . '/Http/Controllers/HomeController.php';
         $contents       = $this->getStub('HomeController');
         $this->laravel['files']->put(
             $homeController,
@@ -105,7 +105,7 @@ class InstallCommand extends Command
 
     public function createSettingController()
     {
-        $settingController = $this->directory . '/Controllers/SettingController.php';
+        $settingController = $this->directory . '/Http/Controllers/SettingController.php';
         $contents          = $this->getStub('SettingController');
         $this->laravel['files']->put(
             $settingController,
@@ -118,7 +118,7 @@ class InstallCommand extends Command
 
     protected function getNamespace($name = null): string
     {
-        $base = str_replace('\\Controllers', '\\', config('admin.route.namespace'));
+        $base = str_replace('\\Http\\Controllers', '\\', config('admin.route.namespace'));
 
         return trim($base, '\\') . ($name ? "\\{$name}" : '');
     }

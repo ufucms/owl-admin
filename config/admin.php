@@ -73,7 +73,7 @@ return [
 
     // 扩展
     'extension'                            => [
-        'dir' => base_path('extensions'),
+        'dir' => base_path('addons'),
     ],
 
     'layout' => [

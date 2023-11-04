@@ -3,11 +3,10 @@
 namespace Slowlyo\OwlAdmin\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Slowlyo\OwlAdmin\Traits\StaticTrait;
+use Slowlyo\OwlAdmin\Traits\DateTimeFormatterTrait;
 
 class BaseModel extends Model
 {
-    protected function serializeDate(\DateTimeInterface $date): string
-    {
-        return $date->format($this->getDateFormat());
-    }
+    use StaticTrait, DateTimeFormatterTrait;
 }

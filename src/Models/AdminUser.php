@@ -9,17 +9,78 @@ use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Foundation\Auth\User;
+use Stancl\VirtualColumn\VirtualColumn;
+use Slowlyo\OwlAdmin\Traits\StaticTrait;
+use Slowlyo\OwlAdmin\Traits\DateTimeFormatterTrait;
 
 class AdminUser extends User implements AuthenticatableContract
 {
-    use Authenticatable, HasApiTokens;
+    use Authenticatable, HasApiTokens, VirtualColumn, StaticTrait, DateTimeFormatterTrait;
 
     protected $guarded = [];
 
-    protected function serializeDate(\DateTimeInterface $date): string
+    public static function getCustomColumns(): array
     {
-        return $date->format($this->getDateFormat());
+        return [
+            'id',
+            'username',
+            'password',
+            'mobile',
+            'name',
+            'gender',
+            'birthday',
+            'email',
+            'avatar',
+            'state',
+            'remember_token',
+        ];
     }
+
+    /**
+     * 性别选项
+     * 
+    **/
+    public static $genderDef = 0;
+    public static $genderOpt = [
+        [
+            'label' => '未知',
+            'value' => 0,
+            'color' => '#303540',
+            'icon'  => 'fa fa-genderless',
+        ],
+        [
+            'label' => '男',
+            'value' => 1,
+            'color' => '#2468f2',
+            'icon'  => 'fa fa-mars',
+        ],
+        [
+            'label' => '女',
+            'value' => 2,
+            'color' => '#f23d3d',
+            'icon'  => 'fa fa-venus',
+        ],
+    ];
+
+    /**
+     * 状态选项
+     * 
+    **/
+    public static $stateDef = 1;
+    public static $stateOpt = [
+        [
+            'label' => '已禁用',
+            'value' => 0,
+            'color' => '#f23d3d',
+            'icon'  => 'fa fa-times-circle',
+        ],
+        [
+            'label' => '正常',
+            'value' => 1,
+            'color' => '#30bf13',
+            'icon'  => 'fa fa-check-circle',
+        ],
+    ];
 
     public function roles(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {

@@ -454,7 +454,7 @@ class Manager
     {
         $name = md5($fileCode) . '.arc';
 
-        return $this->makeTempDirectory('extensions') . '/' . $name;
+        return $this->makeTempDirectory('addons') . '/' . $name;
     }
 
     /**

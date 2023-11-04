@@ -459,7 +459,7 @@ abstract class ServiceProvider extends LaravelServiceProvider
      */
     protected function getPublishPath()
     {
-        return public_path('extensions/' . $this->getPackageName());
+        return public_path('addons/' . $this->getPackageName());
     }
 
     /**
@@ -470,7 +470,7 @@ abstract class ServiceProvider extends LaravelServiceProvider
      */
     final public function getAssetPath()
     {
-        return $this->path('public/extensions/' . $this->packageName);
+        return $this->path('public/addons/' . $this->packageName);
     }
 
 
@@ -617,7 +617,7 @@ abstract class ServiceProvider extends LaravelServiceProvider
 
     public function assetUrl($path)
     {
-        return url('extensions/' . $this->packageName . $path);
+        return url('addons/' . $this->packageName . $path);
     }
 
     public function loadJs($path)
