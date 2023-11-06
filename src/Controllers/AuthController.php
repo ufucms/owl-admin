@@ -79,7 +79,7 @@ class AuthController extends AdminController
                         ->Image()
                         ->src('${captcha_img}')
                         ->height('1.917rem')
-                        ->className('p-0 captcha-box')
+                        ->className('p-0 border captcha-box')
                         ->imageClassName('rounded-r')
                         ->set(
                             'clickAction',
@@ -233,7 +233,7 @@ JS,
             ->label($userInfo['name'])
             ->className('h-full w-full')
             ->btnClassName('navbar-user w-full')
-            ->menuClassName('min-w-0 p-2')
+            ->menuClassName('min-w-0 px-2')
             ->set('icon', $userInfo['avatar'])
             ->buttons([
                 amis()

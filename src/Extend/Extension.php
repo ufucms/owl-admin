@@ -49,7 +49,7 @@ class Extension
     {
         amis_abort_if(!preg_match('/^[\w\-_]+\/[\w\-_]+$/', $name), __('admin.extensions.name_invalid'));
 
-        $this->dirs[] = 'public/extensions/' . $name;
+        $this->dirs[] = 'public/addons/' . $name;
 
         $this->filesystem = app('files');
         $this->namespace  = $namespace;
