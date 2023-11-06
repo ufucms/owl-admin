@@ -8,8 +8,11 @@ use Illuminate\Support\Facades\Hash;
 use Slowlyo\OwlAdmin\Renderers\Page;
 use Slowlyo\OwlAdmin\Renderers\Form;
 use Slowlyo\OwlAdmin\Support\Captcha;
+use Slowlyo\OwlAdmin\Models\AdminUser;
 use Illuminate\Support\Facades\Validator;
 use Slowlyo\OwlAdmin\Renderers\TextControl;
+use Slowlyo\OwlAdmin\Renderers\DateControl;
+use Slowlyo\OwlAdmin\Renderers\RadiosControl;
 use Slowlyo\OwlAdmin\Renderers\ImageControl;
 use Symfony\Component\HttpFoundation\Response;
 use Slowlyo\OwlAdmin\Services\AdminUserService;
@@ -42,9 +45,12 @@ class AuthController extends AdminController
             if ($validator->fails()) {
                 abort(Response::HTTP_BAD_REQUEST, $validator->errors()->first());
             }
-            $adminModel = Admin::adminUserModel();
+            $adminModel = Admin::config("admin.auth.model", AdminUser::class);
             $user       = $adminModel::query()->where('username', $request->username)->first();
             if ($user && Hash::check($request->password, $user->password)) {
+                if($user->state !== $adminModel::$stateDef){
+                    return $this->response()->fail(__('admin.account_disabled'));
+                }
                 $module = Admin::currentModule(true);
                 $prefix = $module ? $module . '.' : '';
                 $token  = $user->createToken($prefix . 'admin')->plainTextToken;
@@ -216,7 +222,9 @@ JS,
 
     public function currentUser()
     {
+        $url = env('APP_URL');
         $userInfo = Admin::user()->only(['name', 'avatar']);
+        $homePage = "window.open('{$url}', '_blank')";
 
         $menus = amis()
             ->DropdownButton()
@@ -228,6 +236,12 @@ JS,
             ->menuClassName('min-w-0 p-2')
             ->set('icon', $userInfo['avatar'])
             ->buttons([
+                amis()
+                    ->VanillaAction()
+                    ->iconClassName('pr-2')
+                    ->icon('fa fa-home')
+                    ->label(__('admin.site_home_page'))
+                    ->onClick($homePage),
                 amis()
                     ->VanillaAction()
                     ->iconClassName('pr-2')
@@ -256,6 +270,7 @@ JS,
             'roles',
         ]);
 
+        $model = $this->serviceName::make()->getModel();
         $form = Form::make()
             ->title()
             ->panelClassName('px-48 m:px-0')
@@ -274,6 +289,10 @@ JS,
                     ->type('input-password')
                     ->label(__('admin.confirm_password'))
                     ->name('confirm_password'),
+                TextControl::make()->label(__('admin.admin_user.mobile'))->name('mobile')->type('input-number')->validations('isPhoneNumber'),
+                TextControl::make()->label(__('admin.admin_user.email'))->name('email')->type('input-email')->validations('isEmail'),
+                DateControl::make()->label(__('admin.admin_user.birthday'))->name('birthday')->format("YYYY-MM-DD"),
+                RadiosControl::make()->label(__('admin.admin_user.gender'))->name('gender')->options($model::filterData('genderOpt', 0))->inline(true),
             ]);
 
         return $this->response()->success(Page::make()->body($form));
@@ -288,6 +307,10 @@ JS,
                 'old_password',
                 'password',
                 'confirm_password',
+                'mobile',
+                'email',
+                'birthday',
+                'gender',
             ]));
 
         return $this->autoResponse($result);

@@ -92,10 +92,10 @@ class ExtensionController extends AdminController
                 ])
             )
             ->headerToolbar([
+                amis('reload')->align('left'),
                 $this->createExtend(),
                 $this->localInstall(),
                 $this->moreExtend(),
-                amis('reload')->align('right'),
                 amis('filter-toggler')->align('right'),
             ])
             ->columns([
@@ -105,7 +105,7 @@ class ExtensionController extends AdminController
 <div class="flex">
     <div> <img src="${logo}" class="w-10 mr-4"/> </div>
     <div>
-        <div><a href="${homepage}" target="_blank">${alias | truncate:30}</a></div>
+        <div><a class="text-gray-900" href="${homepage}" target="_blank">${alias | truncate:30}</a></div>
         <div class="text-gray-400">${name}</div>
     </div>
 </div>

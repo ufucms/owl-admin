@@ -61,20 +61,14 @@ class CodeGeneratorController extends AdminController
         };
 
         return $this->baseCRUD()
+            ->filterTogglable(true)
             ->filter(
                 $this->baseFilter()->body([
                     amis()->TextControl('keyword', __('admin.keyword'))->size('md'),
                 ])
             )
             ->headerToolbar([
-                amis()
-                    ->DialogAction()
-                    ->label(__('admin.create'))
-                    ->icon('fa fa-add')
-                    ->level('primary')
-                    ->dialog(
-                        $formDrawer()
-                    ),
+                ...$this->baseHeaderToolBar($this->createButton(true, 'full')),
                 amis()
                     ->DialogAction()
                     ->label(__('admin.code_generators.import_record'))
@@ -96,7 +90,6 @@ class CodeGeneratorController extends AdminController
                             ])
                         )
                     ),
-                ...$this->baseHeaderToolBar(),
             ])
             ->columns([
                 amis()->TableColumn('id', 'ID')->sortable(),
@@ -159,14 +152,7 @@ class CodeGeneratorController extends AdminController
                         ->dialog(
                             $this->previewCodeDialog()
                         ),
-                    amis()
-                        ->DialogAction()
-                        ->label(__('admin.edit'))
-                        ->icon('fa-regular fa-pen-to-square')
-                        ->level('link')
-                        ->dialog(
-                            $formDrawer(true)
-                        ),
+                    $this->rowEditButton(true, 'full'),
                     $this->rowDeleteButton(),
                 ]),
             ]);

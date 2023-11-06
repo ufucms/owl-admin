@@ -4,7 +4,7 @@
     "description": "Description...",
     "type": "library",
     "version": "1.0.0",
-    "keywords": ["owl-admin", "extension"],
+    "keywords": ["ufu-admin", "extension"],
     "homepage": "https://github.com/{package}",
     "license": "MIT",
     "authors": [
