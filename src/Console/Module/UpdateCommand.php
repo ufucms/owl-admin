@@ -41,11 +41,15 @@ class UpdateCommand extends Command
         }
 
         foreach ($modules as $module) {
-            $module  = Module::find(ucfirst($module));
-            $script  = '<script>window.$adminApiPrefix = "/' . $module->getLowerName() . '-api"</script>';
+            $module = Module::find(ucfirst($module));
+
+            $script = '<script>window.$adminApiPrefix = "/' . $module->getLowerName() . '-api"</script>';
+
             $content = preg_replace('/<script>window.*?<\/script>/is', $script, $content);
 
-            file_put_contents($module->getPath() . '/Resources/views/index.blade.php', $content);
+            $_path = AdminModule::getModulePath($module->getName(), '/Resources');
+
+            file_put_contents($_path . '/views/index.blade.php', $content);
         }
     }
 }
