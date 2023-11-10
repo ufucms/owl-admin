@@ -2,6 +2,7 @@
 
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Route;
+use {{Namespace}} AS Admin;
 
 Route::group([
     'domain'     => config('admin.route.domain'),
@@ -9,7 +10,7 @@ Route::group([
     'middleware' => config('admin.route.middleware'),
 ], function (Router $router) {
 
-    $router->resource('dashboard', \{{Namespace}}\HomeController::class);
+    $router->resource('dashboard', Admin\HomeController::class);
 
-    $router->resource('system/settings', \{{Namespace}}\SettingController::class);
+    $router->resource('system/settings', Admin\SettingController::class);
 });

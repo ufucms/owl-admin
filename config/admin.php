@@ -2,7 +2,7 @@
 
 return [
     // 应用名称
-    'name'           => 'Owl Admin',
+    'name'           => 'UFU Admin',
 
     // 应用 logo
     'logo'           => '/admin/logo.png',
@@ -20,7 +20,7 @@ return [
     'route'          => [
         'prefix'               => 'admin-api',
         'domain'               => null,
-        'namespace'            => 'App\\Admin\\Controllers',
+        'namespace'            => 'App\\Admin\\Http\\Controllers',
         'middleware'           => ['admin'],
         // 不包含额外路由, 配置后, 不会追加新增/详情/编辑页面路由
         'without_extra_routes' => [
@@ -78,7 +78,7 @@ return [
 
     'layout' => [
         // 浏览器标题, 功能名称使用 %title% 代替
-        'title'              => '%title% | OwlAdmin',
+        'title'              => '%title% | UFU Admin',
         'header'             => [
             // 是否显示 [刷新] 按钮
             'refresh'      => true,
