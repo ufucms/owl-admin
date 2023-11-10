@@ -144,7 +144,7 @@ class InitCommand extends Command
 
     protected function getNamespace($name = null): string
     {
-        $prefix = AdminModule::isV10() ? 'App\\' : '';
+        $prefix = AdminModule::isV10() ? 'app\\' : '';
 
         return config('modules.namespace') . "\\{$this->module->getName()}\\{$prefix}{$name}";
     }
@@ -172,7 +172,7 @@ class InitCommand extends Command
     {
         $config   = $this->getPath("/config/admin.php");
         $contents = $this->getStub('config');
-        $_path    = 'Modules/' . $this->module->getName() . (AdminModule::isV10() ? '/App' : '') . '/bootstrap.php';
+        $_path    = 'Modules/' . $this->module->getName() . (AdminModule::isV10() ? '/app' : '') . '/bootstrap.php';
 
         $content = str_replace('{{bootstrap}}', 'base_path(\'' . $_path . '\')', $contents);
         $content = str_replace('{{route_prefix}}', $this->module->getLowerName() . '-api', $content);
