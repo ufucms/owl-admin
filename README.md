@@ -33,7 +33,7 @@
 <br>
 
 <div align="center">
-  <img  width="92%" style="border-radius:4px;margin-top:20px;margin-bottom:20px;box-shadow: 2px 0 6px gray;" src="https://slowlyo.gitee.io/static/images/owl-admin/home-page1.png" />
+  <img  width="92%" style="border-radius:4px;margin-top:20px;margin-bottom:20px;box-shadow: 2px 0 6px gray;" src="https://slowlyo.gitee.io/static/images/owl-admin/_home.png" />
 </div>
 <br>
 
@@ -41,7 +41,7 @@
 
 基于 `Laravel` 、 `amis` 开发的后台框架, 快速且灵活~
 
-- 基于 amis 以 json 的方式构建页面，减少前端开发工作量，提升开发效率。
+- 基于 amis 以 json 的方式在后端构建页面，减少前端开发工作量，提升开发效率。
 - 在 amis 150多个组件都不满足的情况下, 可自行开发前端。
 - 框架为前后端分离 (不用再因为框架而束手束脚~)。
 
