@@ -1043,12 +1043,12 @@ ajv@^6.12.4, ajv@^6.12.5:
     json-schema-traverse "^0.4.1"
     uri-js "^4.2.2"
 
-amis-core@^3.5.3:
-  version "3.5.3"
-  resolved "https://registry.npmmirror.com/amis-core/-/amis-core-3.5.3.tgz#20362dee947503ad9dcaaf3dd6fc9ea92efd1360"
-  integrity sha512-brgCIHQ3D+0nLYMrmEL6ZkqfuXGRRHSVscVg8jCL679qxXew3lBTlGBTZw0CAGYV1OFXRe0e7eWWcAeYffKGDg==
+amis-core@^3.6.0:
+  version "3.6.0"
+  resolved "https://registry.npmmirror.com/amis-core/-/amis-core-3.6.0.tgz#0ac6d0dc22c1f16ddc174e5547d17ffe4eb1f302"
+  integrity sha512-sJfhSXfwlrCOYoGXJABJlXPOiOcuwIe+4Lv2mvh9JBlmh9nDOMZPITlrMkY4SA/Aena3B64TeCMhRgm6oIXekQ==
   dependencies:
-    amis-formula "^3.5.3"
+    amis-formula "^3.6.0"
     classnames "2.3.2"
     file-saver "^2.0.2"
     hoist-non-react-statics "^3.3.2"
@@ -1095,10 +1095,10 @@ amis-editor@^5.6.2:
     lodash "^4.17.15"
     mobx-state-tree "^3.17.3"
 
-amis-formula@^3.5.3:
-  version "3.5.3"
-  resolved "https://registry.npmmirror.com/amis-formula/-/amis-formula-3.5.3.tgz#5f0667426f27035b3cc1779a12445566cb7d5435"
-  integrity sha512-FhrW2E+u59EZBgreZdjgLnhBkWCBWskSojNy1VDtvBzH7SNhM+26lJwlYfdkObRyoJj/nf3Ia2kmoYszp2AMuQ==
+amis-formula@^3.6.0:
+  version "3.6.0"
+  resolved "https://registry.npmmirror.com/amis-formula/-/amis-formula-3.6.0.tgz#ad858d2fff2af2cb4c1274c3281c2d2b3f6214a3"
+  integrity sha512-n32AvNZmlhyCJuYPopnpJ/UM71LnlnjA4VnI4vli3EOSGGzWjAeHF30ccRLWHlnqLgw6nJi4JydwWSeozqiXAA==
   dependencies:
     lodash "^4.17.15"
     moment "^2.19.4"
@@ -1121,14 +1121,14 @@ amis-theme-editor@*:
   dependencies:
     amis-theme-editor-helper "*"
 
-amis-ui@^3.5.3:
-  version "3.5.3"
-  resolved "https://registry.npmmirror.com/amis-ui/-/amis-ui-3.5.3.tgz#62d60058d00cf6dc3c71e5ba18f7fe577aebd63c"
-  integrity sha512-bcchGIIA0Zv7xgfCuRFt9uvfcUMzDPi51HIBnEByofRvHZXZmyK3jU1lsGkujcIh+G8PYO5w5pLQNoTGGCm/Sg==
+amis-ui@^3.6.0:
+  version "3.6.0"
+  resolved "https://registry.npmmirror.com/amis-ui/-/amis-ui-3.6.0.tgz#c3040d831445858a9d426e658e6d96db08866461"
+  integrity sha512-EJgNu93l3I2UAhFSYByJLJUwcWHdqjxBqWKGF60pLeN/fRXL1LxInpNxuVvnPezMYijKd3QTaacOnFodlYQThw==
   dependencies:
     "@rc-component/mini-decimal" "^1.0.1"
-    amis-core "^3.5.3"
-    amis-formula "^3.5.3"
+    amis-core "^3.6.0"
+    amis-formula "^3.6.0"
     classnames "2.3.2"
     codemirror "^5.63.0"
     downshift "6.1.12"
@@ -1163,13 +1163,13 @@ amis-ui@^3.5.3:
     tslib "^2.3.1"
     uncontrollable "7.2.1"
 
-amis@^3.5.3:
-  version "3.5.3"
-  resolved "https://registry.npmmirror.com/amis/-/amis-3.5.3.tgz#61651be8e482a666085e8f2708120e671b0fdf7d"
-  integrity sha512-3OY1+y8FmDrCPZS8391TSqTrwZasuYj1CNOOo87kvZHTPpSBVm6ZSZ9My3My4icbWUsTc9US4o0SUcdMVKnmpg==
+amis@^3.6.0:
+  version "3.6.0"
+  resolved "https://registry.npmmirror.com/amis/-/amis-3.6.0.tgz#df7aee7caaa3e102d8ea499af99bb04828eefd9f"
+  integrity sha512-c/0eOp884GMkTsDy2f1vl5ZtKGC8TwoTh9LZhtE9V+6FrECo9ghRrNbMc+8Azcrk6BEEzxuOqozQWhi87t0Enw==
   dependencies:
-    amis-core "^3.5.3"
-    amis-ui "^3.5.3"
+    amis-core "^3.6.0"
+    amis-ui "^3.6.0"
     attr-accept "2.2.2"
     blueimp-canvastoblob "2.1.0"
     classnames "2.3.2"
@@ -1198,7 +1198,6 @@ amis@^3.5.3:
     qrcode.react "^3.1.0"
     react-cropper "^2.1.8"
     react-dropzone "^11.4.2"
-    react-error-boundary "^4.0.11"
     react-intersection-observer "9.5.2"
     react-json-view "1.21.3"
     react-transition-group "4.4.2"
@@ -4450,13 +4449,6 @@ react-dropzone@^11.4.2:
     attr-accept "^2.2.2"
     file-selector "^0.4.0"
     prop-types "^15.8.1"
-
-react-error-boundary@^4.0.11:
-  version "4.0.11"
-  resolved "https://registry.npmmirror.com/react-error-boundary/-/react-error-boundary-4.0.11.tgz#36bf44de7746714725a814630282fee83a7c9a1c"
-  integrity sha512-U13ul67aP5DOSPNSCWQ/eO0AQEYzEFkVljULQIjMV0KlffTAhxuDoBKdO0pb/JZ8mDhMKFZ9NZi0BmLGUiNphw==
-  dependencies:
-    "@babel/runtime" "^7.12.5"
 
 react-frame-component@^5.2.6:
   version "5.2.6"
