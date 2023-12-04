@@ -41,6 +41,7 @@ class AdminUserController extends AdminController
                 amis()->TableColumn('created_at', __('admin.created_at'))->type('datetime')->sortable(true),
                 amis()->TableColumn('updated_at', __('admin.updated_at'))->type('datetime'),
                 Operation::make()->label(__('admin.actions'))->buttons([
+                    $this->rowShowButton(),
                     $this->rowEditButton(true),
                     $this->rowDeleteButton()->visibleOn('${id != 1}'),
                 ]),

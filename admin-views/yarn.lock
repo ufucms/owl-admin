@@ -1043,12 +1043,12 @@ ajv@^6.12.4, ajv@^6.12.5:
     json-schema-traverse "^0.4.1"
     uri-js "^4.2.2"
 
-amis-core@^3.6.0:
-  version "3.6.0"
-  resolved "https://registry.npmmirror.com/amis-core/-/amis-core-3.6.0.tgz#0ac6d0dc22c1f16ddc174e5547d17ffe4eb1f302"
-  integrity sha512-sJfhSXfwlrCOYoGXJABJlXPOiOcuwIe+4Lv2mvh9JBlmh9nDOMZPITlrMkY4SA/Aena3B64TeCMhRgm6oIXekQ==
+amis-core@^3.6.1:
+  version "3.6.1"
+  resolved "https://registry.npmmirror.com/amis-core/-/amis-core-3.6.1.tgz#2e23d99990ee749b77928c60d33d7b1bb0e773e1"
+  integrity sha512-GyFftIArPtls+aEC6r0BHoL1olk7G0Xjc319NWBXkA5PBSqD0+HdoYFaQ0Fh0sUIqPxpu7g8CNFM3YlPonIQyw==
   dependencies:
-    amis-formula "^3.6.0"
+    amis-formula "^3.6.1"
     classnames "2.3.2"
     file-saver "^2.0.2"
     hoist-non-react-statics "^3.3.2"
@@ -1095,10 +1095,10 @@ amis-editor@^5.6.2:
     lodash "^4.17.15"
     mobx-state-tree "^3.17.3"
 
-amis-formula@^3.6.0:
-  version "3.6.0"
-  resolved "https://registry.npmmirror.com/amis-formula/-/amis-formula-3.6.0.tgz#ad858d2fff2af2cb4c1274c3281c2d2b3f6214a3"
-  integrity sha512-n32AvNZmlhyCJuYPopnpJ/UM71LnlnjA4VnI4vli3EOSGGzWjAeHF30ccRLWHlnqLgw6nJi4JydwWSeozqiXAA==
+amis-formula@^3.6.1:
+  version "3.6.1"
+  resolved "https://registry.npmmirror.com/amis-formula/-/amis-formula-3.6.1.tgz#8ff43c0bf43d9f3614a1e11ce03e1e607dfaa98a"
+  integrity sha512-dzbYDaLz4zCmkWFSfF/fxN3EeYnFDX5j1RSDdWNmDpw/DAa9ZBGSlBwx6U6JEQWP3sDNKtOqzzS3OtdOmp0VkA==
   dependencies:
     lodash "^4.17.15"
     moment "^2.19.4"
@@ -1121,14 +1121,14 @@ amis-theme-editor@*:
   dependencies:
     amis-theme-editor-helper "*"
 
-amis-ui@^3.6.0:
-  version "3.6.0"
-  resolved "https://registry.npmmirror.com/amis-ui/-/amis-ui-3.6.0.tgz#c3040d831445858a9d426e658e6d96db08866461"
-  integrity sha512-EJgNu93l3I2UAhFSYByJLJUwcWHdqjxBqWKGF60pLeN/fRXL1LxInpNxuVvnPezMYijKd3QTaacOnFodlYQThw==
+amis-ui@^3.6.1:
+  version "3.6.1"
+  resolved "https://registry.npmmirror.com/amis-ui/-/amis-ui-3.6.1.tgz#92ce5b92aa7e635aa5116b70c5c6515997a29407"
+  integrity sha512-NrV2tsp4SubjBhBCbiMAIdSLkH+Cx9t+/blRgUDBfJfnL9u5BdiLFsgg67WImg2uvUiSMXsbVPGMpBGDj+YuBg==
   dependencies:
     "@rc-component/mini-decimal" "^1.0.1"
-    amis-core "^3.6.0"
-    amis-formula "^3.6.0"
+    amis-core "^3.6.1"
+    amis-formula "^3.6.1"
     classnames "2.3.2"
     codemirror "^5.63.0"
     downshift "6.1.12"
@@ -1163,13 +1163,13 @@ amis-ui@^3.6.0:
     tslib "^2.3.1"
     uncontrollable "7.2.1"
 
-amis@^3.6.0:
-  version "3.6.0"
-  resolved "https://registry.npmmirror.com/amis/-/amis-3.6.0.tgz#df7aee7caaa3e102d8ea499af99bb04828eefd9f"
-  integrity sha512-c/0eOp884GMkTsDy2f1vl5ZtKGC8TwoTh9LZhtE9V+6FrECo9ghRrNbMc+8Azcrk6BEEzxuOqozQWhi87t0Enw==
+amis@^3.6.1:
+  version "3.6.1"
+  resolved "https://registry.npmmirror.com/amis/-/amis-3.6.1.tgz#d1774fa2c3f9132c2cee53dbdd852929aa35968c"
+  integrity sha512-fvHD+Ps4EYmUiVgfYbK9NZMd3baZdxs/IunLET7vB2ZGkNOKXYCr0LpZf96+Qr94wiVP4QENDOEHxcL0JtjLXA==
   dependencies:
-    amis-core "^3.6.0"
-    amis-ui "^3.6.0"
+    amis-core "^3.6.1"
+    amis-ui "^3.6.1"
     attr-accept "2.2.2"
     blueimp-canvastoblob "2.1.0"
     classnames "2.3.2"
