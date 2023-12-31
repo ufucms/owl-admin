@@ -33,6 +33,8 @@ class AdminUser extends User implements AuthenticatableContract
             'avatar',
             'state',
             'remember_token',
+	    'created_at',
+	    'updated_at',
         ];
     }
 

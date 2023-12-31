@@ -2,7 +2,6 @@
 
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Route;
-use {{Namespace}} AS {{moduleUC}};
 
 Route::group([
     'as'         => '{{module}}',
@@ -10,6 +9,6 @@ Route::group([
     'prefix'     => config('{{module}}.admin.route.prefix'),
     'middleware' => config('{{module}}.admin.route.middleware'),
 ], function (Router $router) {
-    $router->resource('dashboard', {{moduleUC}}\HomeController::class);
-    $router->resource('system/settings', {{moduleUC}}\SettingController::class);
+    $router->resource('dashboard', \{{Namespace}}\HomeController::class);
+    $router->resource('system/settings', \{{Namespace}}\SettingController::class);
 });

@@ -110,7 +110,8 @@ class InitCommand extends Command
     {
         $file     = $this->getPath('/routes/admin.php');
         $contents = $this->getStub('routes');
-        $content  = str_replace(['{{Namespace}}', '{{module}}', '{{moduleUC}}'], [$this->getNamespace('Http\Controllers'), $this->module->getLowerName(), $this->module], $contents);
+        $content  = str_replace('{{Namespace}}', $this->getNamespace('Http\Controllers'), $contents);
+        $content  = str_replace('{{module}}', $this->module->getLowerName(), $content);
 
         $this->laravel['files']->put($file, $content);
         $this->line('<info>Routes file was created:</info> ' . str_replace(base_path(), '', $file));
@@ -156,8 +157,8 @@ class InitCommand extends Command
 
     protected function createViews()
     {
-        if (is_file(public_path('admin/index.html'))) {
-            $content = file_get_contents(public_path('admin/index.html'));
+        if (is_file(public_path('admin-assets/index.html'))) {
+            $content = file_get_contents(public_path('admin-assets/index.html'));
         } else {
             $content = file_get_contents(base_path('vendor/slowlyo/owl-admin/admin-views/dist/index.html'));
         }

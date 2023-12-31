@@ -6,7 +6,7 @@ namespace Slowlyo\OwlAdmin\Renderers;
  * AutoGenerateFilter
  *
  * @author  slowlyo
- * @version v3.6.1
+ * @version v6.0.0
  */
 class AutoGenerateFilter extends BaseRenderer
 {

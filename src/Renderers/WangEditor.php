@@ -8,7 +8,7 @@ use Slowlyo\OwlAdmin\Traits\UploadTrait;
  * WangEditor
  *
  * @author  slowlyo
- * @version v3.6.1
+ * @version v6.0.0
  */
 class WangEditor extends BaseRenderer
 {
@@ -190,7 +190,7 @@ class WangEditor extends BaseRenderer
     }
 
     /**
-     * 指定为 custom-wang-editor 渲染器。
+     * 指定为 wang-editor 渲染器。
      */
     public function type($value = 'custom-wang-editor')
     {

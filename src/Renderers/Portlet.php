@@ -6,7 +6,7 @@ namespace Slowlyo\OwlAdmin\Renderers;
  * Portlet
  *
  * @author  slowlyo
- * @version v3.6.1
+ * @version v6.0.0
  */
 class Portlet extends BaseRenderer
 {

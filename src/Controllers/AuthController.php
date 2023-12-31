@@ -45,7 +45,7 @@ class AuthController extends AdminController
             if ($validator->fails()) {
                 abort(Response::HTTP_BAD_REQUEST, $validator->errors()->first());
             }
-            $adminModel = Admin::config("admin.auth.model", AdminUser::class);
+            $adminModel = Admin::adminUserModel();
             $user       = $adminModel::query()->where('username', $request->username)->first();
             if ($user && Hash::check($request->password, $user->password)) {
                 if($user->state !== $adminModel::$stateDef){
@@ -79,7 +79,7 @@ class AuthController extends AdminController
                         ->Image()
                         ->src('${captcha_img}')
                         ->height('1.917rem')
-                        ->className('p-0 border captcha-box')
+                        ->className('p-0 captcha-box')
                         ->imageClassName('rounded-r')
                         ->set(
                             'clickAction',

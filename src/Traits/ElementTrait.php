@@ -213,14 +213,11 @@ trait ElementTrait
             ]);
     }
 
-    protected function baseHeaderToolBar($createButton = null): Array
+    protected function baseHeaderToolBar(bool $dialog = true, string $dialogSize = 'md'): DialogAction|LinkAction
     {
-        if($createButton === null){
-            $createButton = $this->createButton(true);
-        }
         return [
             amis('reload')->align('left'),
-            $createButton,
+            $this->createButton($dialog, $dialogSize),
             'bulkActions',
             amis('columns-toggler')->align('right'),
             amis('filter-toggler')->align('right'),

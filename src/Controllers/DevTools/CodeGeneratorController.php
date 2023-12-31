@@ -68,7 +68,7 @@ class CodeGeneratorController extends AdminController
                 ])
             )
             ->headerToolbar([
-                ...$this->baseHeaderToolBar($this->createButton(true, 'full')),
+                ...$this->baseHeaderToolBar(true, 'full'),
                 amis()
                     ->DialogAction()
                     ->label(__('admin.code_generators.import_record'))
