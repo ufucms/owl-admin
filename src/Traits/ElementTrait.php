@@ -177,7 +177,7 @@ trait ElementTrait
             ->title('')
             ->actions([
                 Button::make()->label(__('admin.reset'))->actionType('clear-and-submit'),
-                amis('submit')->label(__('admin.search'))->level('primary'),
+                amis('submit')->icon('fa-solid fa-magnifying-glass')->label(__('admin.search'))->level('primary'),
             ]);
     }
 
@@ -213,7 +213,7 @@ trait ElementTrait
             ]);
     }
 
-    protected function baseHeaderToolBar(bool $dialog = true, string $dialogSize = 'md'): DialogAction|LinkAction
+    protected function baseHeaderToolBar(bool $dialog = true, string $dialogSize = 'md'): array
     {
         return [
             amis('reload')->align('left'),

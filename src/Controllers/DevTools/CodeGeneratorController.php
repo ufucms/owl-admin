@@ -209,7 +209,7 @@ class CodeGeneratorController extends AdminController
                                     ->joinValues(false)
                                     ->extractValue()
                                     ->checkAll()
-                                    ->defaultCheckAll()
+                                    ->value(['need_controller','need_service'])
                                     ->options(Generator::make()->needCreateOptions()),
                                 amis()
                                     ->TextControl('primary_key', __('admin.code_generators.primary_key'))
