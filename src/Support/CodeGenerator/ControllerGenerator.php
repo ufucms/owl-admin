@@ -154,14 +154,14 @@ class ControllerGenerator extends BaseGenerator
         // row actions
         $stub = str_replace('{{ RowActions }}', $this->makeRowButton($this->pageInfo), $stub);
 
-        // header toolbar
+        /*// header toolbar
         $headerToolbar = '';
         if ($this->pageInfo['dialog_form']) {
             $headerToolbar =
                 "\n\t\t\t->headerToolbar([\n\t\t\t\t\$this->createButton(true{$this->getDialogSize()}),\n\t\t\t\t...\$this->baseHeaderToolBar()\n\t\t\t])";
         }
 
-        $stub = str_replace('{{ HeaderToolbar }}', $headerToolbar, $stub);
+        $stub = str_replace('{{ HeaderToolbar }}', $headerToolbar, $stub);*/
 
         return $this;
     }

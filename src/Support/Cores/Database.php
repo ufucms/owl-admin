@@ -56,6 +56,8 @@ class Database
             $table->string('avatar', 240)->nullable()->comment('用户头像');
             $table->string('remember_token', 100)->nullable()->comment('记住我');
             $table->tinyInteger('state')->index()->default(1)->comment('状态：0=已禁用,1=正常');
+            $table->string('reason', 240)->nullable()->comment('原因');
+            $table->string('memo', 240)->nullable()->comment('备注');
             $table->json('data')->nullable()->comment('虚拟列数据存储');
             $table->timestamps();
             $table->comment('管理员表');
