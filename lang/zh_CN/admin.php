@@ -143,6 +143,8 @@ return [
         'gender'                  => '性别',
         'birthday'                => '出生日期',
         'state'                   => '状态',
+        'reason'                  => '原因',
+        'memo'                    => '备注',
         'roles'                   => '角色',
         'search_username'         => '搜索用户名/姓名/手机号/电子邮箱',
         'password_confirmation'   => '两次输入密码不一致',

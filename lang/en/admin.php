@@ -143,6 +143,8 @@ return [
         'gender'                  => 'Gender',
         'birthday'                => 'Birthday',
         'state'                   => 'Status',
+        'reason'                  => 'Reason',
+        'memo'                    => 'Memo',
         'roles'                   => 'Roles',
         'search_username'         => 'Search Username/Name/Phone/Email',
         'password_confirmation'   => 'Password Not Match',

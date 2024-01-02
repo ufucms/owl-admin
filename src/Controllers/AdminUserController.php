@@ -38,6 +38,8 @@ class AdminUserController extends AdminController
                     amis()->Tag()->label('${name}')->className('my-1')
                 ),
                 amis()->TableColumn('state', __('admin.admin_user.state'))->type('status')->source($model::toSource('stateOpt')),
+                amis()->TableColumn('reason', __('admin.admin_user.reason')),
+                amis()->TableColumn('memo', __('admin.admin_user.memo')),
                 amis()->TableColumn('created_at', __('admin.created_at'))->type('datetime')->sortable(true),
                 amis()->TableColumn('updated_at', __('admin.updated_at'))->type('datetime'),
                 Operation::make()->label(__('admin.actions'))->buttons([
@@ -71,6 +73,8 @@ class AdminUserController extends AdminController
             amis()->DateControl('birthday', __('admin.admin_user.birthday'))->format("YYYY-MM-DD"),
             amis()->RadiosControl('gender', __('admin.admin_user.gender'))->options($model::$genderOpt)->inline(true)->value($model::$genderDef),
             amis()->RadiosControl('state', __('admin.admin_user.state'))->options($model::$stateOpt)->inline(true)->value($model::$stateDef)->required(),
+            amis()->TextControl('reason', __('admin.admin_user.reason'))->hiddenOn("data.state == 0")->required(),
+            amis()->TextControl('memo', __('admin.admin_user.memo')),
         ]);
     }
 
