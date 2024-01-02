@@ -166,6 +166,7 @@ class AdminUserService extends AdminService
     {
         $idsArr = explode(',', $ids);
         $delectIds = array_values(array_diff($idsArr, [1]));//禁止删除超级管理员
+        amis_abort_if(empty($delectIds), __('admin.action_failed'));
         return $this->query()->whereIn($this->primaryKey(), $delectIds)->delete();
     }
 }
