@@ -18,6 +18,29 @@ class AdminUserController extends AdminController
     public function list(): Page
     {
         $model = $this->serviceName::make()->getModel();
+        $columns = [
+            amis()->TableColumn('id', 'ID')->sortable(),
+            amis()->TableColumn('avatar', __('admin.admin_user.avatar'))->type('avatar')->src('${avatar}'),
+            amis()->TableColumn('username', __('admin.username')),
+            amis()->TableColumn('mobile', __('admin.admin_user.mobile'))->copyable(),
+            amis()->TableColumn('email', __('admin.admin_user.email'))->copyable(),
+            amis()->TableColumn('name', __('admin.admin_user.name')),
+            amis()->TableColumn('gender', __('admin.admin_user.gender'))->type('status')->source($model::toSource('genderOpt')),
+            amis()->TableColumn('birthday', __('admin.admin_user.birthday'))->type('date'),
+            amis()->TableColumn('roles', __('admin.admin_user.roles'))->type('each')->items(
+                amis()->Tag()->label('${name}')->className('my-1')
+            ),
+            amis()->TableColumn('state', __('admin.admin_user.state'))->type('status')->source($model::toSource('stateOpt')),
+            amis()->TableColumn('reason', __('admin.admin_user.reason')),
+            amis()->TableColumn('memo', __('admin.admin_user.memo')),
+            amis()->TableColumn('created_at', __('admin.created_at'))->type('datetime')->sortable(true),
+            amis()->TableColumn('updated_at', __('admin.updated_at'))->type('datetime'),
+            Operation::make()->label(__('admin.actions'))->buttons([
+                $this->rowEditButton(true),
+                $this->rowDeleteButton()->visibleOn('this.id != 1'),
+            ]),
+        ];
+
         $crud = $this->baseCRUD()
             ->filterTogglable(true)
             ->filter($this->baseFilter()->body(
@@ -25,36 +48,14 @@ class AdminUserController extends AdminController
                     ->size('lg')
                     ->placeholder(__('admin.admin_user.search_username'))
             ))
-            ->columns([
-                amis()->TableColumn('id', 'ID')->sortable(),
-                amis()->TableColumn('avatar', __('admin.admin_user.avatar'))->type('avatar')->src('${avatar}'),
-                amis()->TableColumn('username', __('admin.username')),
-                amis()->TableColumn('mobile', __('admin.admin_user.mobile'))->copyable(),
-                amis()->TableColumn('email', __('admin.admin_user.email'))->copyable(),
-                amis()->TableColumn('name', __('admin.admin_user.name')),
-                amis()->TableColumn('gender', __('admin.admin_user.gender'))->type('status')->source($model::toSource('genderOpt')),
-                amis()->TableColumn('birthday', __('admin.admin_user.birthday'))->type('date'),
-                amis()->TableColumn('roles', __('admin.admin_user.roles'))->type('each')->items(
-                    amis()->Tag()->label('${name}')->className('my-1')
-                ),
-                amis()->TableColumn('state', __('admin.admin_user.state'))->type('status')->source($model::toSource('stateOpt')),
-                amis()->TableColumn('reason', __('admin.admin_user.reason')),
-                amis()->TableColumn('memo', __('admin.admin_user.memo')),
-                amis()->TableColumn('created_at', __('admin.created_at'))->type('datetime')->sortable(true),
-                amis()->TableColumn('updated_at', __('admin.updated_at'))->type('datetime'),
-                Operation::make()->label(__('admin.actions'))->buttons([
-                    $this->rowEditButton(true),
-                    $this->rowDeleteButton()->visibleOn('${id != 1}'),
-                ]),
-            ]);
-
+            ->columns($columns);
         return $this->baseList($crud);
     }
 
-    public function form(): Form
+    public function form($isEdit = false): Form
     {
         $model = $this->serviceName::make()->getModel();
-        return $this->baseForm()->body([
+        $form = [
             amis()->ImageControl('avatar', __('admin.admin_user.avatar'))->receiver($this->uploadImagePath()),
             amis()->TextControl('username', __('admin.username'))->required(),
             amis()->TextControl('name', __('admin.admin_user.name'))->required(),
@@ -73,9 +74,11 @@ class AdminUserController extends AdminController
             amis()->DateControl('birthday', __('admin.admin_user.birthday'))->format("YYYY-MM-DD"),
             amis()->RadiosControl('gender', __('admin.admin_user.gender'))->options($model::$genderOpt)->inline(true)->value($model::$genderDef),
             amis()->RadiosControl('state', __('admin.admin_user.state'))->options($model::$stateOpt)->inline(true)->value($model::$stateDef)->required(),
-            amis()->TextControl('reason', __('admin.admin_user.reason'))->hiddenOn("data.state == 0")->required(),
+            amis()->TextControl('reason', __('admin.admin_user.reason'))->visibleOn('this.state != 1')->required(),
             amis()->TextControl('memo', __('admin.admin_user.memo')),
-        ]);
+        ];
+
+        return $this->baseForm()->body($form);
     }
 
     public function detail(): Form

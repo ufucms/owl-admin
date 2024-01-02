@@ -144,4 +144,18 @@ class AdminUserService extends AdminService
 
         return false;
     }
+
+    /**
+     * 删除
+     *
+     * @param string $ids
+     *
+     * @return mixed
+     */
+    public function delete(string $ids): mixed
+    {
+        $idsArr = explode(',', $ids);
+        $delectIds = array_values(array_diff($idsArr, [1]));//禁止删除超级管理员
+        return $this->query()->whereIn($this->primaryKey(), $delectIds)->delete();
+    }
 }
