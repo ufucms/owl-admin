@@ -38,6 +38,7 @@ class AdminUserService extends AdminService
         amis_abort_if(!data_get($data, 'password'), __('admin.required', ['attribute' => __('admin.password')]));
 
         $this->passwordHandler($data);
+        $this->stateReasonHandler($data);
 
         $columns = $this->getTableColumns();
 
@@ -50,6 +51,7 @@ class AdminUserService extends AdminService
     {
         $this->checkUsernameUnique($data['username'], $primaryKey);
         $this->passwordHandler($data);
+        $this->stateReasonHandler($data);
 
         $columns = $this->getTableColumns();
 
@@ -94,6 +96,14 @@ class AdminUserService extends AdminService
 
             unset($data['confirm_password']);
             unset($data['old_password']);
+        }
+    }
+
+    public function stateReasonHandler(&$data)
+    {
+        $state = Arr::get($data, 'state');
+        if ($state) {
+            $data['reason'] = '';
         }
     }
 
