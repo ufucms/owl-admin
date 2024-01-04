@@ -189,7 +189,7 @@ class Database
      *
      * @return void
      */
-    public function fillInitialData()
+    public function fillInitialData($username = 'admin', $password = 'admin')
     {
         $data = function ($data) {
             foreach ($data as $k => $v) {
@@ -208,8 +208,8 @@ class Database
         // 创建初始用户
         $adminUser->truncate();
         $adminUser->insert($data([
-            'username' => 'admin',
-            'password' => bcrypt('admin'),
+            'username' => $username,
+            'password' => bcrypt($password),
             'name'     => 'Administrator',
         ]));
 

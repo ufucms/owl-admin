@@ -4,15 +4,15 @@
     "license": "MIT",
     "authors": [
         {
-            "name": "Slowlyo",
-            "email": "slowlyo_email@qq.com.com",
-            "homepage": "https://gitee.com/slowlyo"
+            "name": "ufucms",
+            "email": "ufucms@ufucms.com",
+            "homepage": "https://github.com/ufucms/ufu-admin"
         }
     ],
-    "homepage": "https://github.com/slowlyo/owl-admin",
+    "homepage": "https://github.com/ufucms/ufu-admin",
     "keywords": [
         "Laravel",
-        "OwlAdmin",
+        "UfuAdmin",
         "Admin",
         "Amis"
     ],

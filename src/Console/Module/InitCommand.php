@@ -9,11 +9,15 @@ use Slowlyo\OwlAdmin\Support\Cores\Module as AdminModule;
 
 class InitCommand extends Command
 {
-    protected $signature = 'admin-module:init {--module=}';
+    protected $signature = 'admin-module:init {--module=} {--username=} {--password=}';
 
     protected $description = 'Init Admin Module';
 
     protected $module;
+
+    protected $username;
+
+    protected $password;
 
     protected $directory;
 
@@ -30,7 +34,7 @@ class InitCommand extends Command
         $prefix = rtrim($this->module->getLowerName(), '_') . '_';
 
         Database::make($prefix)->initSchema();
-        Database::make($prefix)->fillInitialData();
+        Database::make($prefix)->fillInitialData($this->username, $this->password);
     }
 
     public function checkOption()
@@ -55,6 +59,10 @@ class InitCommand extends Command
         }
 
         $this->module = Module::find($this->module);
+
+        $this->username = $this->option('username');
+
+        $this->password = $this->option('password');
     }
 
     protected function setDirectory()
