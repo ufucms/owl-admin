@@ -205,5 +205,7 @@ class InitCommand extends Command
         $run('AdminPermission');
         $run('AdminRole');
         $run('AdminUser');
+        $run('AdminSetting');
+        $run('AdminExtension');
     }
 }

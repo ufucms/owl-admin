@@ -13,6 +13,7 @@ use Slowlyo\OwlAdmin\Controllers\AdminController;
 
 class ExtensionController extends AdminController
 {
+
     /**
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\Resources\Json\JsonResource
      * @throws \Psr\Container\ContainerExceptionInterface
@@ -185,12 +186,12 @@ class ExtensionController extends AdminController
                         amis()->TextControl()
                             ->name('name')
                             ->label(__('admin.extensions.form.name'))
-                            ->placeholder('eg: slowlyo/owl-admin')
+                            ->placeholder('eg: ufucms/ufu-admin')
                             ->required(),
                         amis()->TextControl()
                             ->name('namespace')
                             ->label(__('admin.extensions.form.namespace'))
-                            ->placeholder('eg: Slowlyo\Notice')
+                            ->placeholder('eg: Ufucms\Notice')
                             ->required(),
                     ])
                 )
@@ -242,16 +243,18 @@ class ExtensionController extends AdminController
     public function more()
     {
         $q = request('q');
-        // 加速
+        $url    = 'https://packagist.org/search.json?tags=ufu-admin&per_page=15&q=' . $q;
+        $result = file_get_contents($url);
+        /*// 加速
         $url = 'http://admin-packagist.dev.slowlyo.top?q=' . $q;
 
         $result = file_get_contents($url);
 
         // 如果哪天加速服务挂了，就用官方的
         if (!$result) {
-            $url    = 'https://packagist.org/search.json?tags=owl-admin&per_page=15&q=' . $q;
+            $url    = 'https://packagist.org/search.json?tags=ufu-admin&per_page=15&q=' . $q;
             $result = file_get_contents($url);
-        }
+        }*/
 
         return $this->response()->success(json_decode($result, true));
     }

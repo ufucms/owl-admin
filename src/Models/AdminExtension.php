@@ -2,13 +2,13 @@
 
 namespace Slowlyo\OwlAdmin\Models;
 
-class Extension extends BaseModel
+class AdminExtension extends BaseModel
 {
+    //protected $table = 'admin_extensions';
+
     protected $fillable = ['name', 'is_enabled', 'options'];
 
     protected $casts = [
         'options' => 'json',
     ];
-
-    protected $table = 'admin_extensions';
 }

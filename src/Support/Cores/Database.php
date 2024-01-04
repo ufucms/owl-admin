@@ -125,6 +125,21 @@ class Database
             $table->comment('权限菜单表');
         });
 
+        $this->create('admin_settings', function (Blueprint $table) {
+            $table->string('key', 190)->unique()->comment('配置项');
+            $table->longText('values')->comment('配置值');
+            $table->timestamps();
+            $table->comment('配置表');
+        });
+
+        $this->create('admin_extensions', function (Blueprint $table) {
+            $table->increments('id')->unsigned()->comment('ID');
+            $table->string('name', 100)->unique()->comment('扩展标识');
+            $table->tinyInteger('is_enabled')->default(0)->comment('是否启用：0=禁用,1=启用');
+            $table->timestamps();
+            $table->comment('扩展表');
+        });
+
         // 如果是模块，跳过下面的表
         if ($this->moduleName) {
             return;
@@ -147,21 +162,6 @@ class Database
             $table->timestamps();
             $table->comment('代码生成器表');
         });
-
-        $this->create('admin_settings', function (Blueprint $table) {
-            $table->string('key', 190)->unique()->comment('配置项');
-            $table->longText('values')->comment('配置值');
-            $table->timestamps();
-            $table->comment('配置表');
-        });
-
-        $this->create('admin_extensions', function (Blueprint $table) {
-            $table->increments('id')->unsigned()->comment('ID');
-            $table->string('name', 100)->unique()->comment('扩展标识');
-            $table->tinyInteger('is_enabled')->default(0)->comment('是否启用：0=禁用,1=启用');
-            $table->timestamps();
-            $table->comment('扩展表');
-        });
     }
 
     public function down()
@@ -173,6 +173,8 @@ class Database
         $this->dropIfExists('admin_role_users');
         $this->dropIfExists('admin_role_permissions');
         $this->dropIfExists('admin_permission_menu');
+        $this->dropIfExists('admin_settings');
+        $this->dropIfExists('admin_extensions');
 
         // 如果是模块，跳过下面的表
         if ($this->moduleName) {
@@ -180,8 +182,6 @@ class Database
         }
 
         $this->dropIfExists('admin_code_generators');
-        $this->dropIfExists('admin_settings');
-        $this->dropIfExists('admin_extensions');
     }
 
     /**

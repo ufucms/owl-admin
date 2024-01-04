@@ -107,6 +107,8 @@ return [
         'admin_user'       => \Slowlyo\OwlAdmin\Models\AdminUser::class,
         'admin_role'       => \Slowlyo\OwlAdmin\Models\AdminRole::class,
         'admin_menu'       => \Slowlyo\OwlAdmin\Models\AdminMenu::class,
+        'admin_setting'    => \Slowlyo\OwlAdmin\Models\AdminSetting::class,
+        'admin_extension'  => \Slowlyo\OwlAdmin\Models\AdminExtension::class,
         'admin_permission' => \Slowlyo\OwlAdmin\Models\AdminPermission::class,
     ],
 

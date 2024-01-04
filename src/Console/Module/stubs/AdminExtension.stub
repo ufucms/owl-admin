@@ -1,0 +1,8 @@
+<?php
+
+namespace {{Namespace}};
+
+class AdminExtension extends \Slowlyo\OwlAdmin\Models\AdminExtension
+{
+    protected $table = '{{module}}_admin_extensions';
+}

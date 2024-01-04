@@ -9,7 +9,7 @@ use Slowlyo\OwlAdmin\Extend\ServiceProvider;
 use Psr\Container\NotFoundExceptionInterface;
 use Psr\Container\ContainerExceptionInterface;
 use Slowlyo\OwlAdmin\Services\AdminSettingService;
-use Slowlyo\OwlAdmin\Models\{AdminMenu, AdminRole, AdminUser, AdminPermission};
+use Slowlyo\OwlAdmin\Models\{AdminMenu, AdminRole, AdminUser, AdminPermission, AdminSetting, AdminExtension};
 use Slowlyo\OwlAdmin\Support\{Context, Composer, Cores\Route, Cores\Permission, Cores\JsonResponse};
 
 class Admin
@@ -182,6 +182,22 @@ class Admin
     public static function adminUserModel()
     {
         return self::config('admin.models.admin_user', AdminUser::class);
+    }
+
+    /**
+     * @return AdminSetting
+     */
+    public static function adminSettingModel()
+    {
+        return self::config('admin.models.admin_setting', AdminSetting::class);
+    }
+
+    /**
+     * @return AdminExtension
+     */
+    public static function adminExtensionModel()
+    {
+        return self::config('admin.models.admin_extension', AdminExtension::class);
     }
 
     /**

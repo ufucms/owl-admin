@@ -1,0 +1,8 @@
+<?php
+
+namespace {{Namespace}};
+
+class AdminSetting extends \Slowlyo\OwlAdmin\Models\AdminSetting
+{
+    protected $table = '{{module}}_admin_settings';
+}

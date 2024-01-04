@@ -10,7 +10,12 @@ use Slowlyo\OwlAdmin\Models\AdminSetting;
 
 class AdminSettingService extends AdminService
 {
-    protected string $modelName = AdminSetting::class;
+    protected string $modelName;
+
+    public function __construct()
+    {
+        $this->modelName = Admin::adminSettingModel();
+    }
 
     protected string $cacheKeyPrefix = 'app_setting_';
 

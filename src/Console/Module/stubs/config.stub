@@ -94,9 +94,11 @@ return [
     ],
 
     'models' => [
-        'admin_user'           => \{{model_namespace}}\AdminUser::class,
-        'admin_role'           => \{{model_namespace}}\AdminRole::class,
-        'admin_menu'           => \{{model_namespace}}\AdminMenu::class,
-        'admin_permission'     => \{{model_namespace}}\AdminPermission::class,
+        'admin_user'       => \{{model_namespace}}\AdminUser::class,
+        'admin_role'       => \{{model_namespace}}\AdminRole::class,
+        'admin_menu'       => \{{model_namespace}}\AdminMenu::class,
+        'admin_setting'    => \{{model_namespace}}\AdminSetting::class,
+        'admin_extension'  => \{{model_namespace}}\AdminExtension::class,
+        'admin_permission' => \{{model_namespace}}\AdminPermission::class,
     ],
 ];

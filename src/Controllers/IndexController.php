@@ -6,7 +6,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Slowlyo\OwlAdmin\Admin;
-use Slowlyo\OwlAdmin\Models\Extension;
+use Slowlyo\OwlAdmin\Models\AdminExtension as ExtensionModel;
 
 class IndexController extends AdminController
 {
@@ -33,7 +33,7 @@ class IndexController extends AdminController
             'login_captcha'          => Admin::config('admin.auth.login_captcha'),
             'show_development_tools' => Admin::config('admin.show_development_tools'),
             'system_theme_setting'   => Admin::setting()->get('system_theme_setting'),
-            'enabled_extensions'     => Extension::query()->where('is_enabled', 1)->pluck('name')?->toArray(),
+            'enabled_extensions'     => ExtensionModel::query()->where('is_enabled', 1)->pluck('name')?->toArray(),
         ]);
     }
 

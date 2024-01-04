@@ -16,7 +16,7 @@ use Slowlyo\OwlAdmin\Support\Composer;
 use Illuminate\Contracts\Container\Container;
 use Psr\Container\NotFoundExceptionInterface;
 use Psr\Container\ContainerExceptionInterface;
-use Slowlyo\OwlAdmin\Models\Extension as ExtensionModel;
+use Slowlyo\OwlAdmin\Services\AdminExtensionService as ExtensionService;
 
 class Manager
 {
@@ -26,6 +26,11 @@ class Manager
      * @var ServiceProvider[]|Collection
      */
     protected Collection|array $extensions;
+
+    /**
+     * @var Collection
+     */
+    protected $service;
 
     /**
      * @var array
@@ -45,6 +50,8 @@ class Manager
     public function __construct(Container $app)
     {
         $this->app = $app;
+
+        $this->service = new ExtensionService();
 
         $this->extensions = new Collection();
 
@@ -103,10 +110,10 @@ class Manager
     {
         $name = $this->getName($name);
 
-        $extension = ExtensionModel::query()->where('name', $name)->first();
+        $extension = $this->service->query()->where('name', $name)->first();
 
         if (!$extension) {
-            $extension = ExtensionModel::query()->create(['name' => $name]);
+            $extension = $this->service->query()->create(['name' => $name]);
 
             Admin::extension($name)->install();
         }
@@ -253,7 +260,7 @@ class Manager
     {
         $composerProperty = Composer::parse($directory . '/composer.json');
 
-        $serviceProvider = $composerProperty->get('extra.owl-admin');
+        $serviceProvider = $composerProperty->get('extra.ufu-admin');
         $psr4            = $composerProperty->get('autoload.psr-4');
         $files           = $composerProperty->get('autoload.files');
 
@@ -436,7 +443,7 @@ class Manager
 
         $composerProperty = Composer::parse($directory . '/composer.json');
 
-        if (!$composerProperty->name || !$composerProperty->get('extra.owl-admin')) {
+        if (!$composerProperty->name || !$composerProperty->get('extra.ufu-admin')) {
             return false;
         }
 
@@ -467,7 +474,7 @@ class Manager
     {
         if ($this->settings === null) {
             try {
-                $this->settings = ExtensionModel::all()->keyBy('name');
+                $this->settings = $this->service->getModel()::all()->keyBy('name');
             } catch (\Throwable $e) {
                 $this->settings = new Collection();
 
