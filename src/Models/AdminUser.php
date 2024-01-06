@@ -17,6 +17,13 @@ class AdminUser extends User implements AuthenticatableContract
 {
     use Authenticatable, HasApiTokens, VirtualColumn, StaticTrait, DateTimeFormatterTrait;
 
+    public function __construct(array $attributes = [])
+    {
+        $this->setConnection(Admin::config('admin.database.connection'));
+
+        parent::__construct($attributes);
+    }
+
     protected $guarded = [];
 
     public static function getCustomColumns(): array
