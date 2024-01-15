@@ -10,8 +10,6 @@ use Slowlyo\OwlAdmin\Models\AdminSetting;
 
 class AdminSettingService extends AdminService
 {
-    protected string $modelName;
-
     public function __construct()
     {
         $this->modelName = Admin::adminSettingModel();

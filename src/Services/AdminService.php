@@ -13,6 +13,8 @@ abstract class AdminService
     use ErrorTrait;
 
     protected $tableColumn;
+    
+    protected string $modelName;
 
     public static function make(): static
     {
@@ -83,8 +85,11 @@ abstract class AdminService
     public function getEditData($id): Model|\Illuminate\Database\Eloquent\Collection|Builder|array|null
     {
         $model = $this->getModel();
+        $hidden = collect([$model->getCreatedAtColumn(), $model->getUpdatedAtColumn()])
+            ->filter(fn($item) => $item !== null)
+            ->toArray();
 
-        return $this->query()->find($id)->makeHidden([$model->getCreatedAtColumn(), $model->getUpdatedAtColumn()]);
+        return $this->query()->find($id)->makeHidden($hidden);
     }
 
     /**

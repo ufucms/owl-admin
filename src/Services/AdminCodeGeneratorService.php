@@ -12,7 +12,10 @@ use Slowlyo\OwlAdmin\Models\AdminCodeGenerator;
  */
 class AdminCodeGeneratorService extends AdminService
 {
-    protected string $modelName = AdminCodeGenerator::class;
+    public function __construct()
+    {
+        $this->modelName = AdminCodeGenerator::class;
+    }
 
     public function listQuery()
     {

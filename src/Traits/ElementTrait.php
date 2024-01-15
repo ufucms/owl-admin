@@ -196,12 +196,11 @@ trait ElementTrait
      */
     protected function baseCRUD(): CRUDTable
     {
-        return CRUDTable::make()
+        $crud = CRUDTable::make()
             ->perPage(20)
             ->affixHeader(false)
             ->filterTogglable(false)
             ->filterDefaultVisible(false)
-            ->set('primaryField', $this->service->primaryKey())
             ->api($this->getListGetDataPath())
             ->quickSaveApi($this->getQuickEditPath())
             ->quickSaveItemApi($this->getQuickEditItemPath())
@@ -211,6 +210,12 @@ trait ElementTrait
             ->headerToolbar([
                 ...$this->baseHeaderToolBar(),
             ]);
+
+        if (isset($this->service)) {
+            $crud->set('primaryField', $this->service->primaryKey());
+        }
+
+        return $crud;
     }
 
     protected function baseHeaderToolBar(bool $dialog = true, string $dialogSize = 'md'): array
