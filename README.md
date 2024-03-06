@@ -37,8 +37,9 @@
 composer create-project laravel/laravel example-app
 ```
 
-##### 2. 配置数据库信息
+##### 2. 项目配置
 
+配置数据库信息
 ```dotenv
 # .env
 DB_CONNECTION=mysql
@@ -47,6 +48,26 @@ DB_PORT=3306
 DB_DATABASE=ufu_admin
 DB_USERNAME=root
 DB_PASSWORD=
+```
+
+
+app.php文件配置
+
+```shell
+    'timezone' => 'Asia/Shanghai', //时区
+
+
+    'locale' => 'zh_CN', //语言
+```
+
+
+App\Providers\AppServiceProvider.php文件配置
+
+```shell
+    public function boot(): void
+    {
+        \Schema::defaultStringLength(191);
+    }
 ```
 
 ##### 3. 获取 `Ufu Admin`
