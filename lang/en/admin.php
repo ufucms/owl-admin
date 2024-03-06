@@ -132,6 +132,10 @@ return [
         'save_current_config'       => 'Save Current Config',
         'input_config_name'         => 'Please Input Config Name',
         'same_name_tips'            => 'Configurations with the same name will be overwritten',
+        'save_path_dir'             => 'Primary application',
+        'save_path_select'          => 'Select Directory',
+        'save_path_select_tips'     => 'Project root directory or plugin root directory can be selected',
+        'save_path_label_prefix'    => 'Plugins -> ',
     ],
 
     'admin_users' => 'Admin Users',
@@ -162,6 +166,8 @@ return [
         'name_already_exists' => 'Role Name Already Exists',
         'slug_already_exists' => 'Role Slug Already Exists',
         'set_permissions'     => 'Set Permissions',
+        'cannot_delete'       => 'The super administrator cannot be deleted',
+        'used'                => 'You cannot delete a role that is in use',
     ],
 
     'admin_permissions' => 'Permissions',
@@ -203,6 +209,7 @@ return [
         'parent_id_not_allow'    => 'The parent menu cannot be set to the current submenu',
         'component'              => 'Component',
         'component_desc'         => 'amis by default. Not a custom front-end page, please do not modify it',
+        'url_exists'             => 'menu path duplication',
     ],
 
     'extensions' => [
@@ -259,6 +266,6 @@ Backup important data before performing operations!!!<br>
         'selected_rows'                => 'Selected Rows',
         'page_no_data'                 => 'Current page has no data',
         'selected_rows_no_data'        => 'No data is selected',
-        'please_install_laravel_excel' => 'Please install the package "maatwebsite/excel" first',
+        'please_install_laravel_excel' => 'Please install the package "rap2hpoutre/fast-excel" first',
     ],
 ];

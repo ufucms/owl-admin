@@ -6,7 +6,7 @@ namespace Slowlyo\OwlAdmin\Renderers;
  * Web Component
  *
  * @author  slowlyo
- * @version v6.0.0
+ * @version 6.2.2
  */
 class WebComponent extends BaseRenderer
 {

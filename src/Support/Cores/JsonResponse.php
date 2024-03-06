@@ -13,9 +13,18 @@ class JsonResponse
         'doNotDisplayToast' => 0,
     ];
 
+    public function __construct()
+    {
+        if (config('app.debug')) {
+            $this->additionalData['_debug'] = [
+                'sql' => sql_record(),
+            ];
+        }
+    }
+
     /**
      * @param string $message
-     * @param null $data
+     * @param null   $data
      *
      * @return  \Illuminate\Http\JsonResponse
      */
@@ -27,7 +36,7 @@ class JsonResponse
     }
 
     /**
-     * @param null $data
+     * @param null   $data
      * @param string $message
      *
      * @return \Illuminate\Http\JsonResponse|JsonResource

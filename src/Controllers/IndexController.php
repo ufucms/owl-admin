@@ -62,4 +62,32 @@ class IndexController extends AdminController
     {
         return response()->download(storage_path('app/' . $request->input('path')))->deleteFileAfterSend();
     }
+
+    public function iconifySearch()
+    {
+        $query = request('query', 'home');
+
+        $filePath = storage_path('iconify.json');
+
+        if (!is_file($filePath)) {
+            Artisan::call('admin:iconify');
+        }
+
+        $icons = file_get_contents($filePath);
+        $icons = json_decode($icons, true);
+
+        $items = [];
+        foreach ($icons as $item) {
+            if (str_contains($item, $query)) {
+                $items[] = ['icon' => $item];
+            }
+            if (count($items) > 999) {
+                break;
+            }
+        }
+
+        $total = count($items);
+
+        return $this->response()->success(compact('items', 'total'));
+    }
 }

@@ -131,7 +131,11 @@ return [
         'fill'                      => '填充',
         'save_current_config'       => '保存当前配置',
         'input_config_name'         => '请填写配置名称',
-        'same_name_tips' => '相同名称的配置将会被覆盖'
+        'same_name_tips'            => '相同名称的配置将会被覆盖',
+        'save_path_dir'             => '主应用',
+        'save_path_select'          => '选择目录',
+        'save_path_select_tips'     => '可选择项目根目录或插件根目录',
+        'save_path_label_prefix'    => '插件 -> ',
     ],
 
     'admin_users' => '管理员',
@@ -151,6 +155,7 @@ return [
         'old_password_required'   => '请输入原密码',
         'old_password_error'      => '原密码错误',
         'username_already_exists' => '用户名已存在',
+        'cannot_delete'           => '不可删除超级管理员',
     ],
 
     'admin_roles' => '角色',
@@ -162,6 +167,8 @@ return [
         'name_already_exists' => '角色名称已存在',
         'slug_already_exists' => '角色标识已存在',
         'set_permissions'     => '设置权限',
+        'cannot_delete'       => '不可删除超级管理员',
+        'used'                => '不可删除正在使用的角色',
     ],
 
     'admin_permissions' => '权限',
@@ -203,6 +210,7 @@ return [
         'parent_id_not_allow'    => '父级菜单不允许设置为当前子菜单',
         'component'              => '组件',
         'component_desc'         => '默认为 amis , 非自定义前端页面请勿修改',
+        'url_exists'             => '菜单路径重复',
     ],
 
     'extensions' => [
@@ -259,6 +267,6 @@ return [
         'selected_rows'                => '选中行',
         'page_no_data'                 => '本页无数据',
         'selected_rows_no_data'        => '请选择要导出的数据',
-        'please_install_laravel_excel' => '请先安装 laravel-excel 扩展',
+        'please_install_laravel_excel' => '请先安装 rap2hpoutre/fast-excel 扩展',
     ],
 ];

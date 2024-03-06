@@ -6,7 +6,7 @@ namespace Slowlyo\OwlAdmin\Renderers;
  * Property 属性表
  *
  * @author  slowlyo
- * @version v6.0.0
+ * @version 6.2.2
  */
 class Property extends BaseRenderer
 {

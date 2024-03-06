@@ -52,9 +52,7 @@ class Admin
      */
     public static function user()
     {
-        /** @var AdminUser|null|\Illuminate\Contracts\Auth\Authenticatable $user */
-        $user = static::guard()->user();
-        return $user;
+        return static::guard()->user();
     }
 
     public static function bootstrap()

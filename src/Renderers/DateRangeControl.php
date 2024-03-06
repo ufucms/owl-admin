@@ -6,7 +6,7 @@ namespace Slowlyo\OwlAdmin\Renderers;
  * DateRange 日期范围控件 文档：https://aisuda.bce.baidu.com/amis/zh-CN/components/form/date-range
  *
  * @author  slowlyo
- * @version v6.0.0
+ * @version 6.2.2
  */
 class DateRangeControl extends BaseRenderer
 {

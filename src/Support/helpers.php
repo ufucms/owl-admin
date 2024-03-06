@@ -143,8 +143,35 @@ if (!function_exists('file_upload_handle')) {
         $storage = \Illuminate\Support\Facades\Storage::disk(\Slowlyo\OwlAdmin\Admin::config('admin.upload.disk'));
 
         return \Illuminate\Database\Eloquent\Casts\Attribute::make(
-            get: fn($value) => $value ? $storage->url($value) : '',
+            get: fn($value) => $value ? admin_resource_full_path($value) : '',
             set: fn($value) => str_replace($storage->url(''), '', $value)
+        );
+    }
+}
+
+if (!function_exists('file_upload_handle_multi')) {
+    /**
+     * 处理文件上传回显问题 (多个)
+     *
+     * @return \Illuminate\Database\Eloquent\Casts\Attribute
+     */
+    function file_upload_handle_multi()
+    {
+        $storage = \Illuminate\Support\Facades\Storage::disk(\Slowlyo\OwlAdmin\Admin::config('admin.upload.disk'));
+
+        return \Illuminate\Database\Eloquent\Casts\Attribute::make(
+            get: function ($value) use ($storage) {
+                return array_map(fn($item) => $item ? admin_resource_full_path($item) : '', explode(',', $value));
+            },
+            set: function ($value) use ($storage) {
+                if (is_string($value)) {
+                    return str_replace($storage->url(''), '', $value);
+                }
+
+                $list = array_map(fn($item) => str_replace($storage->url(''), '', $item), \Illuminate\Support\Arr::wrap($value));
+
+                return implode(',', $list);
+            }
         );
     }
 }
@@ -160,11 +187,7 @@ if (!function_exists('is_json')) {
      */
     function is_json($string)
     {
-        if (!is_string($string)) {
-            return false;
-        }
-        json_decode($string);
-        return (json_last_error() == JSON_ERROR_NONE);
+        return is_string($string) && is_array(json_decode($string, true)) && (json_last_error() == JSON_ERROR_NONE);
     }
 }
 

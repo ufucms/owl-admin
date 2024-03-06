@@ -67,6 +67,8 @@ class BaseGenerator
 
         $composer = self::fromJson(base_path('composer.json'));
 
+        $prefix = explode($class, '\\')[0];
+
         $map = collect(Arr::get($composer, 'autoload.psr-4', []))->mapWithKeys(function ($path, $namespace) {
             $namespace = trim($namespace, '\\') . '\\';
 
@@ -75,14 +77,13 @@ class BaseGenerator
             return strlen($namespace);
         }, SORT_REGULAR, true);
 
-        $prefix = explode($class, '\\')[0];
-
         if ($map->isEmpty()) {
             if (Str::startsWith($class, 'App\\')) {
                 $values = ['App\\', 'app/'];
             }
         } else {
             $values = $map->filter(function ($_, $k) use ($class) {
+                $class = str_replace('/', '\\', $class);
                 return Str::startsWith($class, $k);
             })->first();
         }
@@ -92,8 +93,7 @@ class BaseGenerator
         }
 
         [$namespace, $path] = $values;
-
-        return base_path(str_replace([$namespace, '\\'], [$path, '/'], $class)) . '.php';
+        return base_path(str_replace(["/", $namespace, '\\'], ["\\", $path, '/'], $class)) . '.php';
     }
 
     public static function slug(string $name, string $symbol = '-'): array|string

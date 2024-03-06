@@ -25,6 +25,8 @@ class AdminUser extends User implements AuthenticatableContract
     }
 
     protected $guarded = [];
+    
+    protected $appends = ['administrator'];
 
     public static function getCustomColumns(): array
     {
@@ -162,5 +164,10 @@ class AdminUser extends User implements AuthenticatableContract
         $roles = array_column($roles, 'slug');
 
         return $this->inRoles($roles);
+    }
+
+    public function administrator(): Attribute
+    {
+        return Attribute::get(fn() => $this->isAdministrator());
     }
 }

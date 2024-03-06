@@ -17,6 +17,9 @@ use Slowlyo\OwlAdmin\Renderers\ImageControl;
 use Symfony\Component\HttpFoundation\Response;
 use Slowlyo\OwlAdmin\Services\AdminUserService;
 
+/**
+ * @property AdminUserService $service
+ */
 class AuthController extends AdminController
 {
     protected string $serviceName = AdminUserService::class;
@@ -38,8 +41,8 @@ class AuthController extends AdminController
                 'username' => 'required',
                 'password' => 'required',
             ], [
-                'username' . '.required' => __('admin.required', ['attribute' => __('admin.username')]),
-                'password.required'      => __('admin.required', ['attribute' => __('admin.password')]),
+                'username.required' => __('admin.required', ['attribute' => __('admin.username')]),
+                'password.required' => __('admin.required', ['attribute' => __('admin.password')]),
             ]);
 
             if ($validator->fails()) {
@@ -75,8 +78,7 @@ class AuthController extends AdminController
                 amis()->TextControl()->name('captcha')->placeholder(__('admin.captcha'))->required(),
                 amis()->HiddenControl()->name('sys_captcha'),
                 amis()->Service()->id('captcha-service')->api('get:' . admin_url('/captcha'))->body(
-                    amis()
-                        ->Image()
+                    amis()->Image()
                         ->src('${captcha_img}')
                         ->height('1.917rem')
                         ->className('p-0 captcha-box')
@@ -89,25 +91,31 @@ class AuthController extends AdminController
             ]);
         }
 
-        $form = amis()->Form()->panelClassName('border-none')->id('login-form')->title()->api(admin_url('/login'))->initApi('/no-content')->body([
-            amis()->TextControl()->name('username')->placeholder(__('admin.username'))->required(),
-            amis()
-                ->TextControl()
-                ->type('input-password')
-                ->name('password')
-                ->placeholder(__('admin.password'))
-                ->required(),
-            $captcha,
-            amis()->CheckboxControl()->name('remember_me')->option(__('admin.remember_me'))->value(true),
+        $form = amis()->Form()
+            ->panelClassName('border-none')
+            ->id('login-form')
+            ->title()
+            ->api(admin_url('/login'))
+            ->initApi('/no-content')
+            ->body([
+                amis()->TextControl()->name('username')->placeholder(__('admin.username'))->required(),
+                amis()
+                    ->TextControl()
+                    ->type('input-password')
+                    ->name('password')
+                    ->placeholder(__('admin.password'))
+                    ->required(),
+                $captcha,
+                amis()->CheckboxControl()->name('remember_me')->option(__('admin.remember_me'))->value(true),
 
-            // 登录按钮
-            amis()
-                ->VanillaAction()
-                ->actionType('submit')
-                ->label(__('admin.login'))
-                ->level('primary')
-                ->className('w-full'),
-        ])->actions([]); // 清空默认的提交按钮
+                // 登录按钮
+                amis()->VanillaAction()
+                    ->actionType('submit')
+                    ->label(__('admin.login'))
+                    ->level('primary')
+                    ->className('w-full'),
+            ])
+            ->actions([]); // 清空默认的提交按钮
 
         $failAction = [];
         if ($enableCaptcha) {
@@ -185,9 +193,9 @@ JS,
                 'border-bottom-right-radius' => '4px',
             ],
             '.cxd-Image-thumb'               => ['width' => 'auto'],
-            '.login-bg' => [
-                'background' => 'var(--owl-body-bg)'
-            ]
+            '.login-bg'                      => [
+                'background' => 'var(--owl-body-bg)',
+            ],
         ])->body(
             amis()->Wrapper()->className("h-screen w-full flex items-center justify-center")->body($card)
         );
@@ -236,20 +244,17 @@ JS,
             ->menuClassName('min-w-0 px-2')
             ->set('icon', $userInfo['avatar'])
             ->buttons([
-                amis()
-                    ->VanillaAction()
+                amis()->VanillaAction()
                     ->iconClassName('pr-2')
                     ->icon('fa fa-home')
                     ->label(__('admin.site_home_page'))
                     ->onClick($homePage),
-                amis()
-                    ->VanillaAction()
+                amis()->VanillaAction()
                     ->iconClassName('pr-2')
                     ->icon('fa fa-user-gear')
                     ->label(__('admin.user_setting'))
                     ->onClick('window.location.hash = "#/user_setting"'),
-                amis()
-                    ->VanillaAction()
+                amis()->VanillaAction()
                     ->iconClassName('pr-2')
                     ->label(__('admin.logout'))
                     ->icon('fa-solid fa-right-from-bracket')

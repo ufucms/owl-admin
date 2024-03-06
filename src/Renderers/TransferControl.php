@@ -6,7 +6,7 @@ namespace Slowlyo\OwlAdmin\Renderers;
  * Transfer 文档：https://aisuda.bce.baidu.com/amis/zh-CN/components/form/transfer
  *
  * @author  slowlyo
- * @version v6.0.0
+ * @version 6.2.2
  */
 class TransferControl extends BaseRenderer
 {
@@ -37,6 +37,14 @@ class TransferControl extends BaseRenderer
     public function addDialog($value = '')
     {
         return $this->set('addDialog', $value);
+    }
+
+    /**
+     * ui级联关系，true代表级联选中，false代表不级联，默认为true
+     */
+    public function autoCheckChildren($value = true)
+    {
+        return $this->set('autoCheckChildren', $value);
     }
 
     /**
@@ -272,6 +280,14 @@ class TransferControl extends BaseRenderer
     }
 
     /**
+     *
+     */
+    public function initAutoFill($value = '')
+    {
+        return $this->set('initAutoFill', $value);
+    }
+
+    /**
      * 配置 source 接口初始拉不拉取。
      */
     public function initFetch($value = true)
@@ -285,6 +301,14 @@ class TransferControl extends BaseRenderer
     public function initFetchOn($value = '')
     {
         return $this->set('initFetchOn', $value);
+    }
+
+    /**
+     * 是否默认都展开
+     */
+    public function initiallyOpen($value = true)
+    {
+        return $this->set('initiallyOpen', $value);
     }
 
     /**

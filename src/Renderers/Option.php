@@ -6,7 +6,7 @@ namespace Slowlyo\OwlAdmin\Renderers;
  * Option
  *
  * @author  slowlyo
- * @version v6.0.0
+ * @version 6.2.2
  */
 class Option extends BaseRenderer
 {

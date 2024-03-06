@@ -3,6 +3,7 @@
 namespace Slowlyo\OwlAdmin\Support\CodeGenerator;
 
 use Illuminate\Support\Arr;
+use Slowlyo\OwlAdmin\Admin;
 use Illuminate\Support\Collection;
 use Symfony\Component\HttpFoundation\Response as HttpResponse;
 use Illuminate\Database\Migrations\MigrationCreator as BaseMigrationCreator;
@@ -26,13 +27,18 @@ class MigrationGenerator extends BaseMigrationCreator
         return new static(app('files'), __DIR__ . '/stubs');
     }
 
-    public function generate($table, $columns): string
+    public function generate($table, $columns, $model_name): string
     {
         $this->columns = $columns;
 
         $name = 'create_' . $table . '_table';
-
-        return $this->create($name, database_path('migrations'), $table, null);
+        $path          = BaseGenerator::guessClassFileName($model_name);
+        if (Admin::currentModule()) {
+            $path = str_replace('/Models/', '/database/migrations/', $path);
+        } else {
+            $path = str_replace('/Models/', '/../database/migrations/', $path);
+        }
+        return $this->create($name, dirname($path), $table, null);
     }
 
     protected function populateStub($stub, $table): array|string

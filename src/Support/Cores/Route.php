@@ -56,6 +56,7 @@ class Route
             $router->post('_settings', [IndexController::class, 'saveSettings']);
             $router->get('no-content', [IndexController::class, 'noContentResponse']);
             $router->get('_download_export', [IndexController::class, 'downloadExport']);
+            $router->get('_iconify_search', [IndexController::class, 'iconifySearch']);
 
             $router->any('upload_file', [IndexController::class, 'uploadFile']);
             $router->any('upload_rich', [IndexController::class, 'uploadRich']);
@@ -69,6 +70,7 @@ class Route
                 $router->get('/', [AdminUserController::class, 'index']);
 
                 $router->resource('admin_users', AdminUserController::class);
+                $router->post('admin_menus/save_order', [AdminMenuController::class, 'saveOrder']);
                 $router->resource('admin_menus', AdminMenuController::class);
                 $router->resource('admin_roles', AdminRoleController::class);
                 $router->resource('admin_permissions', AdminPermissionController::class);
