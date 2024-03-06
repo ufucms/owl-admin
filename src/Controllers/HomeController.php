@@ -4,15 +4,6 @@ namespace Slowlyo\OwlAdmin\Controllers;
 
 use Slowlyo\OwlAdmin\Admin;
 use Illuminate\Http\JsonResponse;
-use Slowlyo\OwlAdmin\Renderers\Card;
-use Slowlyo\OwlAdmin\Renderers\Flex;
-use Slowlyo\OwlAdmin\Renderers\Html;
-use Slowlyo\OwlAdmin\Renderers\Grid;
-use Slowlyo\OwlAdmin\Renderers\Chart;
-use Slowlyo\OwlAdmin\Renderers\Image;
-use Slowlyo\OwlAdmin\Renderers\Action;
-use Slowlyo\OwlAdmin\Renderers\Custom;
-use Slowlyo\OwlAdmin\Renderers\Wrapper;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class HomeController extends AdminController
@@ -20,16 +11,16 @@ class HomeController extends AdminController
     public function index(): JsonResponse|JsonResource
     {
         $page = $this->basePage()->css($this->css())->body([
-            Grid::make()->columns([
+            amis()->Grid()->columns([
                 $this->frameworkInfo()->md(5),
-                Flex::make()->items([
+                amis()->Flex()->items([
                     $this->pieChart(),
                     $this->cube(),
                 ]),
             ]),
-            Grid::make()->columns([
+            amis()->Grid()->columns([
                 $this->lineChart()->md(8),
-                Flex::make()->className('h-full')->items([
+                amis()->Flex()->className('h-full')->items([
                     $this->clock(),
                     $this->hitokoto(),
                 ])->direction('column'),
@@ -80,12 +71,12 @@ JS
             );
     }
 
-    public function clock(): Card
+    public function clock()
     {
-        return Card::make()->className('h-full bg-blingbling')->header([
+        return amis()->Card()->className('h-full bg-blingbling')->header([
             'title' => '时钟',
         ])->body([
-            Custom::make()
+            amis()->Custom()
                 ->name('clock')
                 ->html('<div id="clock" class="text-4xl"></div><div id="clock-date" class="mt-5"></div>')
                 ->onMount(<<<JS
@@ -104,43 +95,49 @@ JS
         ]);
     }
 
-    public function frameworkInfo(): Card
+    public function frameworkInfo()
     {
-        return Card::make()->className('h-96')->body(
-            Wrapper::make()->className('h-full')->body([
-                Flex::make()->className('h-full')->direction('column')->justify('center')->alignItems('center')->items([
-                    Image::make()->src(url(Admin::config('admin.logo'))),
-                    Wrapper::make()->className('text-3xl mt-9')->body(Admin::config('admin.name')),
-                    Flex::make()->className('w-64 mt-5')->justify('space-around')->items([
-                        Action::make()
-                            ->level('link')
-                            ->label('GitHub')
-                            ->blank(true)
-                            ->actionType('url')
-                            ->blank(true)
-                            ->link('https://github.com/slowlyo/owl-admin'),
-                        Action::make()
-                            ->level('link')
-                            ->label('OwlAdmin 文档')
-                            ->blank(true)
-                            ->actionType('url')
-                            ->link('http://doc.owladmin.com'),
-                        Action::make()
-                            ->level('link')
-                            ->label('Amis 文档')
-                            ->blank(true)
-                            ->actionType('url')
-                            ->link('https://aisuda.bce.baidu.com/amis/zh-CN/docs/index'),
+        return amis()->Card()->className('h-96')->body(
+            amis()->Wrapper()->className('h-full')->body([
+                amis()
+                    ->Flex()
+                    ->className('h-full')
+                    ->direction('column')
+                    ->justify('center')
+                    ->alignItems('center')
+                    ->items([
+                        amis()->Image()->src(url(Admin::config('admin.logo'))),
+                        amis()->Wrapper()->className('text-3xl mt-9')->body(Admin::config('admin.name')),
+                        amis()->Flex()->className('w-64 mt-5')->justify('space-around')->items([
+                            amis()->Action()
+                                ->level('link')
+                                ->label('GitHub')
+                                ->blank(true)
+                                ->actionType('url')
+                                ->blank(true)
+                                ->link('https://github.com/slowlyo/owl-admin'),
+                            amis()->Action()
+                                ->level('link')
+                                ->label('OwlAdmin 文档')
+                                ->blank(true)
+                                ->actionType('url')
+                                ->link('http://doc.owladmin.com'),
+                            amis()->Action()
+                                ->level('link')
+                                ->label('Amis 文档')
+                                ->blank(true)
+                                ->actionType('url')
+                                ->link('https://aisuda.bce.baidu.com/amis/zh-CN/docs/index'),
+                        ]),
                     ]),
-                ]),
             ])
         );
     }
 
-    public function pieChart(): Card
+    public function pieChart()
     {
-        return Card::make()->className('h-96')->body(
-            Chart::make()->height(350)->config("{
+        return amis()->Card()->className('h-96')->body(
+            amis()->Chart()->height(350)->config("{
   backgroundColor:'',
   tooltip: { trigger: 'item' },
   legend: { bottom: 0, left: 'center' },
@@ -169,7 +166,7 @@ JS
         );
     }
 
-    public function lineChart(): Card
+    public function lineChart()
     {
         $randArr = function () {
             $_arr = [];
@@ -182,7 +179,7 @@ JS
         $random1 = $randArr();
         $random2 = $randArr();
 
-        $chart = Chart::make()->height(380)->className('h-96')->config("{
+        $chart = amis()->Chart()->height(380)->className('h-96')->config("{
 backgroundColor:'',
 title:{ text: '会员增长情况', },
 tooltip: { trigger: 'axis' },
@@ -195,13 +192,13 @@ series: [
     { name:'注册量', data: {$random2}, type: 'line', areaStyle: {}, smooth: true, symbol: 'none', },
 ]}");
 
-        return Card::make()->className('clear-card-mb')->body($chart);
+        return amis()->Card()->className('clear-card-mb')->body($chart);
     }
 
-    public function cube(): Card
+    public function cube()
     {
-        return Card::make()->className('h-96 ml-4 w-8/12')->body(
-            Html::make()->html(<<<HTML
+        return amis()->Card()->className('h-96 ml-4 w-8/12')->body(
+            amis()->Html()->html(<<<HTML
 <style>
     .cube-box{ height: 300px; display: flex; align-items: center; justify-content: center; }
   .cube { width: 100px; height: 100px; position: relative; transform-style: preserve-3d; animation: rotate 10s linear infinite; }

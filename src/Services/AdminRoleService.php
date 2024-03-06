@@ -5,7 +5,6 @@ namespace Slowlyo\OwlAdmin\Services;
 use Illuminate\Support\Arr;
 use Slowlyo\OwlAdmin\Admin;
 use Slowlyo\OwlAdmin\Models\AdminRole;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 
 /**
@@ -16,10 +15,12 @@ class AdminRoleService extends AdminService
 {
     public function __construct()
     {
+        parent::__construct();
+
         $this->modelName = Admin::adminRoleModel();
     }
 
-    public function getEditData($id): Model|\Illuminate\Database\Eloquent\Collection|Builder|array|null
+    public function getEditData($id)
     {
         $permission = parent::getEditData($id);
 
@@ -28,7 +29,7 @@ class AdminRoleService extends AdminService
         return $permission;
     }
 
-    public function store($data): bool
+    public function store($data)
     {
         $this->checkRepeated($data);
 
@@ -47,7 +48,7 @@ class AdminRoleService extends AdminService
         return $model->save();
     }
 
-    public function update($primaryKey, $data): bool
+    public function update($primaryKey, $data)
     {
         $this->checkRepeated($data, $primaryKey);
 
@@ -86,5 +87,26 @@ class AdminRoleService extends AdminService
         return $model->permissions()->sync(
             Arr::has($permissions, '0.id') ? Arr::pluck($permissions, 'id') : $permissions
         );
+    }
+
+    public function delete(string $ids)
+    {
+        $_ids   = explode(',', $ids);
+        $exists = $this->query()
+            ->whereIn($this->primaryKey(), $_ids)
+            ->where('slug', 'administrator')
+            ->exists();
+
+        admin_abort_if($exists, __('admin.admin_role.cannot_delete'));
+
+        $used = $this->query()
+            ->whereIn($this->primaryKey(), $_ids)
+            ->has('users')
+            ->exists();
+
+        admin_abort_if($used, __('admin.admin_role.used'));
+
+
+        return parent::delete($ids);
     }
 }

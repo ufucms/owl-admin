@@ -5,15 +5,9 @@ namespace Slowlyo\OwlAdmin\Controllers;
 use Slowlyo\OwlAdmin\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Slowlyo\OwlAdmin\Renderers\Page;
-use Slowlyo\OwlAdmin\Renderers\Form;
 use Slowlyo\OwlAdmin\Support\Captcha;
 use Slowlyo\OwlAdmin\Models\AdminUser;
 use Illuminate\Support\Facades\Validator;
-use Slowlyo\OwlAdmin\Renderers\TextControl;
-use Slowlyo\OwlAdmin\Renderers\DateControl;
-use Slowlyo\OwlAdmin\Renderers\RadiosControl;
-use Slowlyo\OwlAdmin\Renderers\ImageControl;
 use Symfony\Component\HttpFoundation\Response;
 use Slowlyo\OwlAdmin\Services\AdminUserService;
 
@@ -276,31 +270,31 @@ JS,
         ]);
 
         $model = $this->serviceName::make()->getModel();
-        $form = Form::make()
+        $form = amis()->Form()
             ->title()
             ->panelClassName('px-48 m:px-0')
             ->mode('horizontal')
             ->data($user)
             ->api('put:' . admin_url('/user_setting'))
             ->body([
-                ImageControl::make()
+                amis()->ImageControl()
                     ->label(__('admin.admin_user.avatar'))
                     ->name('avatar')
                     ->receiver($this->uploadImagePath()),
-                TextControl::make()->label(__('admin.admin_user.name'))->name('name')->required(),
-                TextControl::make()->type('input-password')->label(__('admin.old_password'))->name('old_password'),
-                TextControl::make()->type('input-password')->label(__('admin.password'))->name('password'),
-                TextControl::make()
+                amis()->TextControl()->label(__('admin.admin_user.name'))->name('name')->required(),
+                amis()->TextControl()->type('input-password')->label(__('admin.old_password'))->name('old_password'),
+                amis()->TextControl()->type('input-password')->label(__('admin.password'))->name('password'),
+                amis()->TextControl()
                     ->type('input-password')
                     ->label(__('admin.confirm_password'))
                     ->name('confirm_password'),
-                TextControl::make()->label(__('admin.admin_user.mobile'))->name('mobile')->type('input-number')->validations('isPhoneNumber'),
-                TextControl::make()->label(__('admin.admin_user.email'))->name('email')->type('input-email')->validations('isEmail'),
-                DateControl::make()->label(__('admin.admin_user.birthday'))->name('birthday')->format("YYYY-MM-DD"),
-                RadiosControl::make()->label(__('admin.admin_user.gender'))->name('gender')->options($model::filterData('genderOpt', 0))->inline(true),
+                amis()->TextControl()->label(__('admin.admin_user.mobile'))->name('mobile')->type('input-number')->validations('isPhoneNumber'),
+                amis()->TextControl()->label(__('admin.admin_user.email'))->name('email')->type('input-email')->validations('isEmail'),
+                amis()->DateControl()->label(__('admin.admin_user.birthday'))->name('birthday')->format("YYYY-MM-DD"),
+                amis()->RadiosControl()->label(__('admin.admin_user.gender'))->name('gender')->options($model::filterData('genderOpt', 0))->inline(true),
             ]);
 
-        return $this->response()->success(Page::make()->body($form));
+        return $this->response()->success(amis()->Page()->body($form));
     }
 
     public function saveUserSetting(): \Illuminate\Http\JsonResponse|\Illuminate\Http\Resources\Json\JsonResource

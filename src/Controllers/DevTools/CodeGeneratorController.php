@@ -112,8 +112,32 @@ class CodeGeneratorController extends AdminController
         $databaseColumns = Generator::make()->getDatabaseColumns();
 
         // 下划线的表名处理成驼峰文件名
-        $nameHandler =
-            'JOIN(ARRAYMAP(SPLIT(IF(ENDSWITH(table_name, "s"), LEFT(table_name, LEN(table_name) - 1), table_name), "_"), item=>CAPITALIZE(item)))';
+        $nameHandler   = 'JOIN(ARRAYMAP(SPLIT(IF(ENDSWITH(table_name, "s"), LEFT(table_name, LEN(table_name) - 1), table_name), "_"), item=>CAPITALIZE(item)))';
+        $currentModule = Admin::currentModule();
+
+        $defaultPath = [
+            'label' => $currentModule ?: __('admin.code_generators.save_path_dir'),
+            'value' => [
+                'controller_path' => $this->getNamespace('Controllers'),
+                'service_path'    => $this->getNamespace('Services', 1),
+                'model_path'      => $this->getNamespace('Models', 1),
+            ],
+        ];
+
+        $paths = [$defaultPath];
+        foreach (Admin::extension()->all() as $extension) {
+            $property  = $extension->composerProperty;
+            $namespace = str_replace('\\', "/", array_key_first($property->get('autoload.psr-4')));
+            $alias     = $extension->getAlias();
+            $paths[]   = [
+                'label' => __("admin.code_generators.save_path_label_prefix") . (empty($alias) ? $extension->getName() : $alias),
+                'value' => [
+                    'controller_path' => $namespace . 'Http/Controllers/',
+                    'service_path'    => $namespace . 'Services/',
+                    'model_path'      => $namespace . 'Models/',
+                ],
+            ];
+        }
 
         return amis()->Form()
             ->id('code_generator_form')
@@ -247,14 +271,14 @@ class CodeGeneratorController extends AdminController
                                     ]),
                                 amis()
                                     ->TextControl('model_name', __('admin.code_generators.model_name'))
-                                    ->value($this->getNamespace('Models', 1) . '${' . $nameHandler . '}'),
+                                    ->value('${model_path}${' . $nameHandler . '}'),
                                 amis()
                                     ->TextControl('controller_name',
                                         __('admin.code_generators.controller_name'))
-                                    ->value($this->getNamespace('Controllers') . '${' . $nameHandler . '}Controller'),
+                                    ->value('${controller_path}${' . $nameHandler . '}Controller'),
                                 amis()
                                     ->TextControl('service_name', __('admin.code_generators.service_name'))
-                                    ->value($this->getNamespace('Services', 1) . '${' . $nameHandler . '}Service'),
+                                    ->value('${service_path}${' . $nameHandler . '}Service'),
                                 amis()
                                     ->SwitchControl('need_timestamps', 'CreatedAt & UpdatedAt')
                                     ->value(1),
@@ -704,16 +728,16 @@ class CodeGeneratorController extends AdminController
 
         $namespace->pop();
 
-        if ($app) {
+        if ($app && !Admin::currentModule()) {
             $namespace->pop();
         }
 
         if ($currentModule = Admin::currentModule()) {
-            if (file_exists(base_path("/Modules/{$currentModule}/app")) && $app) {
-                $namespace->push('app');
+            if (file_exists(base_path("/Modules/{$currentModule}/App")) && $app) {
+                $namespace->push('App');
             } else {
                 $_http = $namespace->pop();
-                $namespace->push('app')->push($_http);
+                $namespace->push('App')->push($_http);
             }
         }
 

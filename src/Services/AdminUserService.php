@@ -17,10 +17,12 @@ class AdminUserService extends AdminService
 {
     public function __construct()
     {
+        parent::__construct();
+
         $this->modelName = Admin::adminUserModel();
     }
 
-    public function getEditData($id): Model|\Illuminate\Database\Eloquent\Collection|Builder|array|null
+    public function getEditData($id)
     {
         $adminUser = parent::getEditData($id)->makeHidden('password');
 
@@ -29,7 +31,7 @@ class AdminUserService extends AdminService
         return $adminUser;
     }
 
-    public function store($data): bool
+    public function store($data)
     {
         $this->checkUsernameUnique($data['username']);
 
@@ -45,7 +47,7 @@ class AdminUserService extends AdminService
         return $this->saveData($data, $columns, $model);
     }
 
-    public function update($primaryKey, $data): bool
+    public function update($primaryKey, $data)
     {
         $this->checkUsernameUnique($data['username'], $primaryKey);
         $this->passwordHandler($data);
@@ -132,7 +134,7 @@ class AdminUserService extends AdminService
      *
      * @return bool
      */
-    protected function saveData($data, array $columns, AdminUser $model): bool
+    protected function saveData($data, array $columns, AdminUser $model)
     {
         $roles = Arr::pull($data, 'roles');
 
@@ -160,11 +162,15 @@ class AdminUserService extends AdminService
      *
      * @return mixed
      */
-    public function delete(string $ids): mixed
+    public function delete(string $ids)
     {
-        $idsArr = explode(',', $ids);
-        $delectIds = array_values(array_diff($idsArr, [1]));//禁止删除超级管理员
-        amis_abort_if(empty($delectIds), __('admin.action_failed'));
-        return $this->query()->whereIn($this->primaryKey(), $delectIds)->delete();
+        $exists = $this->query()
+            ->whereIn($this->primaryKey(), explode(',', $ids))
+            ->whereHas('roles', fn($q) => $q->where('slug', 'administrator'))
+            ->exists();
+
+        admin_abort_if($exists, __('admin.admin_user.cannot_delete'));
+
+        return parent::delete($ids);
     }
 }
