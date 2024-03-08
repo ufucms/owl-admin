@@ -25,7 +25,7 @@ class AuthController extends AdminController
                 return $this->response()->fail(__('admin.required', ['attribute' => __('admin.captcha')]));
             }
 
-            if (strtolower(admin_decode($request->sys_captcha)) != strtolower($request->captcha)) {
+            if(!captcha_api_check($request->captcha, $request->sys_captcha, 'math')){
                 return $this->response()->fail(__('admin.captcha_error'));
             }
         }
@@ -202,12 +202,13 @@ JS,
      */
     public function reloadCaptcha()
     {
-        $captcha = new Captcha();
+        $captcha = app('captcha')->create('math', true);
+        $data = [
+            'captcha_img' => $captcha['img']??'',
+            'sys_captcha' => $captcha['key']??'',
+        ];
 
-        $captcha_img = $captcha->showImg();
-        $sys_captcha = admin_encode($captcha->getCaptcha());
-
-        return $this->response()->success(compact('captcha_img', 'sys_captcha'));
+        return $this->response()->success($data);
     }
 
     public function logout(): \Illuminate\Http\JsonResponse|\Illuminate\Http\Resources\Json\JsonResource
