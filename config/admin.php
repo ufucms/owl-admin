@@ -63,6 +63,8 @@ return [
         ],
     ],
 
+    'row_actions_type'                     => env('ROW_ACTIONS_TYPE', 'dialog'),
+
     'https'                                => env('ADMIN_HTTPS', false),
 
     // 是否显示 [开发者工具]
@@ -100,7 +102,7 @@ return [
          */
         'keep_alive_exclude' => [],
         // 底部信息
-        'footer'             => '<a href="https://github.com/slowlyo/owl-admin" target="_blank">Owl Admin</a>',
+        'footer'             => '<a href="https://github.com/ufucms/owl-admin" target="_blank">UFU Admin</a>',
     ],
 
     'database' => [

@@ -7,12 +7,14 @@ use Slowlyo\OwlAdmin\Renderers\Page;
 use Slowlyo\OwlAdmin\Renderers\Form;
 use Slowlyo\OwlAdmin\Renderers\Button;
 use Slowlyo\OwlAdmin\Renderers\Dialog;
+use Slowlyo\OwlAdmin\Renderers\Drawer;
 use Slowlyo\OwlAdmin\Renderers\CRUDTable;
 use Slowlyo\OwlAdmin\Renderers\Operation;
 use Slowlyo\OwlAdmin\Renderers\LinkAction;
 use Slowlyo\OwlAdmin\Renderers\AjaxAction;
 use Slowlyo\OwlAdmin\Renderers\OtherAction;
 use Slowlyo\OwlAdmin\Renderers\DialogAction;
+use Slowlyo\OwlAdmin\Renderers\DrawerAction;
 
 trait ElementTrait
 {
@@ -66,14 +68,15 @@ trait ElementTrait
      *
      * @return DialogAction|LinkAction
      */
-    protected function createButton(bool $dialog = false, string $dialogSize = 'md'): DialogAction|LinkAction
+    protected function createButton(bool $dialog = false, string $dialogSize = 'md'): DialogAction|DrawerAction|LinkAction
     {
         if ($dialog) {
             $form = $this->form(false)->api($this->getStorePath())->onEvent([]);
+            $button = $this->actionType($form, __('admin.create'), $dialogSize);
 
-            $button = DialogAction::make()->dialog(
+            /*$button = DialogAction::make()->dialog(
                 Dialog::make()->title(__('admin.create'))->body($form)->size($dialogSize)
-            );
+            );*/
         } else {
             $button = LinkAction::make()->link($this->getCreatePath());
         }
@@ -89,7 +92,7 @@ trait ElementTrait
      *
      * @return DialogAction|LinkAction
      */
-    protected function rowEditButton(bool $dialog = false, string $dialogSize = 'md'): DialogAction|LinkAction
+    protected function rowEditButton(bool $dialog = false, string $dialogSize = 'md'): DialogAction|DrawerAction|LinkAction
     {
         if ($dialog) {
             $form = $this->form(true)
@@ -97,10 +100,11 @@ trait ElementTrait
                 ->initApi($this->getEditGetDataPath())
                 ->redirect('')
                 ->onEvent([]);
+            $button = $this->actionType($form, __('admin.edit'), $dialogSize);
 
-            $button = DialogAction::make()->dialog(
+            /*$button = DialogAction::make()->dialog(
                 Dialog::make()->title(__('admin.edit'))->body($form)->size($dialogSize)
-            );
+            );*/
         } else {
             $button = LinkAction::make()->link($this->getEditPath());
         }
@@ -116,12 +120,14 @@ trait ElementTrait
      *
      * @return DialogAction|LinkAction
      */
-    protected function rowShowButton(bool $dialog = false, string $dialogSize = 'md'): DialogAction|LinkAction
+    protected function rowShowButton(bool $dialog = false, string $dialogSize = 'md'): DialogAction|DrawerAction|LinkAction
     {
         if ($dialog) {
-            $button = DialogAction::make()->dialog(
-                Dialog::make()->title(__('admin.show'))->body($this->detail('$id'))->size($dialogSize)
-            );
+            $body = $this->detail('$id');
+            $button = $this->actionType($body, __('admin.show'), $dialogSize);
+            /*$button = DialogAction::make()->dialog(
+                Dialog::make()->title()->body()->size($dialogSize)
+            );*/
         } else {
             $button = LinkAction::make()->link($this->getShowPath());
         }
@@ -227,6 +233,24 @@ trait ElementTrait
             amis('columns-toggler')->align('right'),
             amis('filter-toggler')->align('right'),
         ];
+    }
+
+    protected function actionType($body, $title, string $dialogSize)
+    {
+        $actions_type = ucfirst(Admin::config("admin.row_actions_type"));
+        switch ($actions_type) {
+            case 'Drawer':
+                return DrawerAction::make()->drawer(
+                    Drawer::make()->title($title)->body($body)->size($dialogSize)
+                );
+                break;
+            
+            default:
+                return DialogAction::make()->dialog(
+                    Dialog::make()->title($title)->body($body)->size($dialogSize)
+                );
+                break;
+        }
     }
 
     /**

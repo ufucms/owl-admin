@@ -81,6 +81,8 @@ composer require ufucms/ufu-admin:"dev-master"
 ```shell
 # 先发布框架资源
 php artisan admin:publish
+
+
 # 执行安装 (可以在执行安装命令前在 config/admin.php 中修改部分配置)
 php artisan admin:install
 ```
@@ -90,4 +92,42 @@ php artisan admin:install
 启动服务, 访问 `/admin` 路由即可 <br>
 _初始账号密码都是 `admin`_
 
+
+##### 6. 其它
+
+重新发布所有文件, 并强制覆盖原有文件
+
+```shell
+php artisan admin:publish --force
+
+```
+
+重新发布配置并覆盖
+
+```shell
+php artisan admin:publish --force --config
+
+```
+
+重新发布资源并覆盖
+
+```shell
+php artisan admin:publish --force --assets
+
+```
+
+重新发布语言包并覆盖
+
+```shell
+php artisan admin:publish --force --lang
+
+```
+
+Nginx伪静态配置
+```shell
+location / {
+    try_files $uri $uri/ /index.php?$query_string;
+}
+
+```
 <br>
