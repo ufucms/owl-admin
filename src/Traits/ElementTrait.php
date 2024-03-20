@@ -73,10 +73,6 @@ trait ElementTrait
         if ($dialog) {
             $form = $this->form(false)->api($this->getStorePath())->onEvent([]);
             $button = $this->actionType($form, __('admin.create'), $dialogSize);
-
-            /*$button = DialogAction::make()->dialog(
-                Dialog::make()->title(__('admin.create'))->body($form)->size($dialogSize)
-            );*/
         } else {
             $button = LinkAction::make()->link($this->getCreatePath());
         }
@@ -101,10 +97,6 @@ trait ElementTrait
                 ->redirect('')
                 ->onEvent([]);
             $button = $this->actionType($form, __('admin.edit'), $dialogSize);
-
-            /*$button = DialogAction::make()->dialog(
-                Dialog::make()->title(__('admin.edit'))->body($form)->size($dialogSize)
-            );*/
         } else {
             $button = LinkAction::make()->link($this->getEditPath());
         }
@@ -125,9 +117,6 @@ trait ElementTrait
         if ($dialog) {
             $body = $this->detail('$id');
             $button = $this->actionType($body, __('admin.show'), $dialogSize);
-            /*$button = DialogAction::make()->dialog(
-                Dialog::make()->title()->body()->size($dialogSize)
-            );*/
         } else {
             $button = LinkAction::make()->link($this->getShowPath());
         }
@@ -241,7 +230,7 @@ trait ElementTrait
         switch ($actions_type) {
             case 'Drawer':
                 return DrawerAction::make()->drawer(
-                    Drawer::make()->title($title)->body($body)->size($dialogSize)
+                    Drawer::make()->title($title)->body($body)->size($dialogSize)->closeOnOutside()->resizable()
                 );
                 break;
             
