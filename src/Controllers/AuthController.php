@@ -5,7 +5,6 @@ namespace Slowlyo\OwlAdmin\Controllers;
 use Slowlyo\OwlAdmin\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Slowlyo\OwlAdmin\Support\Captcha;
 use Slowlyo\OwlAdmin\Models\AdminUser;
 use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
