@@ -154,15 +154,6 @@ class ControllerGenerator extends BaseGenerator
         // row actions
         $stub = str_replace('{{ RowActions }}', $this->makeRowButton($this->pageInfo), $stub);
 
-        /*// header toolbar
-        $headerToolbar = '';
-        if ($this->pageInfo['dialog_form']) {
-            $headerToolbar =
-                "\n\t\t\t->headerToolbar([\n\t\t\t\t\$this->createButton(true{$this->getDialogSize()}),\n\t\t\t\t...\$this->baseHeaderToolBar()\n\t\t\t])";
-        }
-
-        $stub = str_replace('{{ HeaderToolbar }}', $headerToolbar, $stub);*/
-
         return $this;
     }
 
@@ -271,6 +262,7 @@ class ControllerGenerator extends BaseGenerator
     public function getColumnComponent($type, $column)
     {
         $label = Arr::get($column, 'comment') ?? Str::studly($column['name']);
+        $label = explode(":", str_replace("：", ":", $label))[0];
 
         if ($component = Arr::get($column, $type . '_type')) {
             $item = "amis()->{$component}('{$column['name']}', '{$label}')";
