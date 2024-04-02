@@ -18,6 +18,7 @@ class {{ ClassName }} extends AdminController
 
     public function list(): Page
     {
+        $model = $this->serviceName::make()->getModel();
         $crud = $this->baseCRUD()
             ->columns([
                 {{ ListContent }}
@@ -29,6 +30,7 @@ class {{ ClassName }} extends AdminController
 
     public function form($isEdit = false): Form
     {
+        $model = $this->serviceName::make()->getModel();
         return $this->baseForm()->body([
             {{ FormContent }}
         ]);
@@ -36,6 +38,7 @@ class {{ ClassName }} extends AdminController
 
     public function detail(): Form
     {
+        $model = $this->serviceName::make()->getModel();
         return $this->baseDetail()->body([
             {{ DetailContent }}
         ]);
